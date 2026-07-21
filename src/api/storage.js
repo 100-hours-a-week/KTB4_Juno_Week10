@@ -1,4 +1,4 @@
-import { STORAGE_KEYS } from "../constants/config";
+import { STORAGE_KEYS } from "@/constants/config";
 
 export const getAccessToken = () => localStorage.getItem(STORAGE_KEYS.accessToken);
 

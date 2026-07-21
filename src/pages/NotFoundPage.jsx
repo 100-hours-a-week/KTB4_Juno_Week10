@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { isAuthenticated } from "../api/storage";
-import { ROUTES } from "../constants/routes";
+import { isAuthenticated } from "@/api/storage";
+import { ROUTES } from "@/constants/routes";
 
 const NotFoundPage = () => {
   const destination = isAuthenticated() ? ROUTES.posts : ROUTES.login;
@@ -19,7 +19,7 @@ const NotFoundPage = () => {
           to={destination}
           className="mt-6 flex h-11 items-center justify-center rounded-full bg-[#b71422] text-sm font-semibold text-white"
         >
-          돌아가기
+          <span style={{ color: "#ffffff" }}>돌아가기</span>
         </Link>
       </section>
     </main>

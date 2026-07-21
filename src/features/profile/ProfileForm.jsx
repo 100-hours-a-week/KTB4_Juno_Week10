@@ -1,13 +1,13 @@
 import { useMemo, useState } from "react";
-import { imageApi, userApi } from "../../api";
-import Icon from "../../components/common/Icon";
-import ProfileImagePicker from "../auth/ProfileImagePicker";
-import { getImageUrlFromResponse } from "../../utils/normalizers";
-import { dispatchProfileUpdated } from "../../utils/profileEvents";
+import { imageApi, userApi } from "@/api";
+import Icon from "@/components/common/Icon";
+import ProfileImagePicker from "@/features/auth/ProfileImagePicker";
+import { getImageUrlFromResponse } from "@/utils/normalizers";
+import { dispatchProfileUpdated } from "@/utils/profileEvents";
 import {
   getProfileNicknameErrorMessage,
   isValidNickname,
-} from "../../utils/validators";
+} from "@/utils/validators";
 
 const ProfileForm = ({ profile, onProfileUpdated, onToast }) => {
   const [nickname, setNickname] = useState(profile.nickname);

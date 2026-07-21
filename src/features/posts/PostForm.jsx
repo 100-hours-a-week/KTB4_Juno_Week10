@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { imageApi } from "../../api";
-import FixedActionBar from "../../components/common/FixedActionBar";
-import { ROUTES } from "../../constants/routes";
-import { getImageUrlFromResponse } from "../../utils/normalizers";
-import ImageDropzone from "./ImageDropzone";
+import { imageApi } from "@/api";
+import FixedActionBar from "@/components/common/FixedActionBar";
+import { ROUTES } from "@/constants/routes";
+import { getImageUrlFromResponse } from "@/utils/normalizers";
+import ImageDropzone from "@/features/posts/ImageDropzone";
 
 const validatePostForm = ({ title, content }) => {
   const trimmedTitle = title.trim();

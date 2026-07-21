@@ -1,14 +1,14 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authApi, setAuthSession } from "../../api";
-import { ROUTES } from "../../constants/routes";
+import { authApi, setAuthSession } from "@/api";
+import { ROUTES } from "@/constants/routes";
 import {
   getLoginErrorMessage,
   passwordRegex,
   emailRegex,
-} from "../../utils/validators";
-import { getSigninAccessToken, getSigninUserId } from "../../utils/normalizers";
-import AuthField from "./AuthField";
+} from "@/utils/validators";
+import { getSigninAccessToken, getSigninUserId } from "@/utils/normalizers";
+import AuthField from "@/features/auth/AuthField";
 
 const initialValues = {
   email: "",

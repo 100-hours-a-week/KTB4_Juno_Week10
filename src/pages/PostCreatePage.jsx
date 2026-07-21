@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { postApi } from "../api";
-import { ROUTES } from "../constants/routes";
-import PostForm from "../features/posts/PostForm";
-import { getPostIdFromResponse } from "../utils/normalizers";
+import { postApi } from "@/api";
+import { ROUTES } from "@/constants/routes";
+import PostForm from "@/features/posts/PostForm";
+import { getPostIdFromResponse } from "@/utils/normalizers";
 
 const PostCreatePage = () => {
   const navigate = useNavigate();

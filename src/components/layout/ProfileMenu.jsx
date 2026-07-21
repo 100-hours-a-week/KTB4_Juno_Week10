@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { authApi, clearAuthSession, getFullImageUrl, userApi } from "../../api";
-import { ROUTES } from "../../constants/routes";
-import { normalizeMyProfile } from "../../utils/normalizers";
-import { subscribeProfileUpdated } from "../../utils/profileEvents";
+import { authApi, clearAuthSession, getFullImageUrl, userApi } from "@/api";
+import { ROUTES } from "@/constants/routes";
+import { normalizeMyProfile } from "@/utils/normalizers";
+import { subscribeProfileUpdated } from "@/utils/profileEvents";
 
 const ProfileMenu = ({ variant = "board" }) => {
   const navigate = useNavigate();

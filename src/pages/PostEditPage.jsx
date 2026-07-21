@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { postApi } from "../api";
-import { ROUTES } from "../constants/routes";
-import PostForm from "../features/posts/PostForm";
+import { postApi } from "@/api";
+import { ROUTES } from "@/constants/routes";
+import PostForm from "@/features/posts/PostForm";
 import {
   getPostFromResponse,
   normalizePostFormData,
-} from "../utils/normalizers";
+} from "@/utils/normalizers";
 
 const PostEditPage = () => {
   const { postId } = useParams();

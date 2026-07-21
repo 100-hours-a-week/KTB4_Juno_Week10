@@ -1,5 +1,5 @@
-import { API_BASE_URL } from "../constants/config";
-import { getAccessToken } from "./storage";
+import { API_BASE_URL } from "@/constants/config";
+import { getAccessToken } from "@/api/storage";
 
 export class ApiError extends Error {
   constructor(message, { status, data } = {}) {
@@ -24,6 +24,17 @@ export const getFullImageUrl = (imageUrl) => {
   return imageUrl.startsWith("http") ? imageUrl : `${API_BASE_URL}${imageUrl}`;
 };
 
+const parseJson = async (response) => {
+  return response.json().catch(() => null);
+};
+
+const createApiError = (fallbackMessage, response, data) => {
+  return new ApiError(data?.message || fallbackMessage, {
+    status: response.status,
+    data,
+  });
+};
+
 export const request = async (url, options = {}) => {
   const headers = {
     "Content-Type": "application/json",
@@ -44,13 +55,10 @@ export const request = async (url, options = {}) => {
     });
   }
 
-  const data = await response.json().catch(() => null);
+  const data = await parseJson(response);
 
   if (!response.ok) {
-    throw new ApiError(data?.message || "요청 처리 중 오류가 발생했습니다.", {
-      status: response.status,
-      data,
-    });
+    throw createApiError("요청 처리 중 오류가 발생했습니다.", response, data);
   }
 
   return data;
@@ -75,13 +83,10 @@ export const uploadImage = async (file) => {
     });
   }
 
-  const data = await response.json().catch(() => null);
+  const data = await parseJson(response);
 
   if (!response.ok) {
-    throw new ApiError(data?.message || "이미지 업로드 중 오류가 발생했습니다.", {
-      status: response.status,
-      data,
-    });
+    throw createApiError("이미지 업로드 중 오류가 발생했습니다.", response, data);
   }
 
   return data;

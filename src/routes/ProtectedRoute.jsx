@@ -1,6 +1,6 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { isAuthenticated } from "../api/storage";
-import { ROUTES } from "../constants/routes";
+import { isAuthenticated } from "@/api/storage";
+import { ROUTES } from "@/constants/routes";
 
 const ProtectedRoute = () => {
   const location = useLocation();

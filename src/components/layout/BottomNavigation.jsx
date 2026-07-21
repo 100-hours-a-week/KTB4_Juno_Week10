@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
-import { ROUTES } from "../../constants/routes";
-import Icon from "../common/Icon";
+import { ROUTES } from "@/constants/routes";
+import Icon from "@/components/common/Icon";
 
 const navigationItems = [
   {

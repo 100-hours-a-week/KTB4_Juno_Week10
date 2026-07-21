@@ -1,4 +1,4 @@
-import { request } from "./client";
+import { request } from "@/api/client";
 
 export const signin = ({ email, password }) => {
   return request("/users/signin", {

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import Icon from "../../components/common/Icon";
+import Icon from "@/components/common/Icon";
 
 const CommentForm = ({ editingComment, isSubmitting, onCancelEdit, onSubmit }) => {
   const textareaRef = useRef(null);

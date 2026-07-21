@@ -4,14 +4,14 @@ import {
   clearAuthSession,
   getAccessToken,
   userApi,
-} from "../api";
-import ConfirmModal from "../components/common/ConfirmModal";
-import Toast from "../components/common/Toast";
-import { ROUTES } from "../constants/routes";
-import PasswordForm from "../features/profile/PasswordForm";
-import ProfileForm from "../features/profile/ProfileForm";
-import WithdrawSection from "../features/profile/WithdrawSection";
-import { normalizeMyProfile } from "../utils/normalizers";
+} from "@/api";
+import ConfirmModal from "@/components/common/ConfirmModal";
+import Toast from "@/components/common/Toast";
+import { ROUTES } from "@/constants/routes";
+import PasswordForm from "@/features/profile/PasswordForm";
+import ProfileForm from "@/features/profile/ProfileForm";
+import WithdrawSection from "@/features/profile/WithdrawSection";
+import { normalizeMyProfile } from "@/utils/normalizers";
 
 const ProfileEditPage = () => {
   const navigate = useNavigate();

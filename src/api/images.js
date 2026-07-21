@@ -1,3 +1,3 @@
-import { uploadImage } from "./client";
+import { uploadImage } from "@/api/client";
 
 export { uploadImage };

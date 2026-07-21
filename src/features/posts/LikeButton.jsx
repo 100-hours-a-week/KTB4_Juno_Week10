@@ -1,5 +1,5 @@
-import Icon from "../../components/common/Icon";
-import { formatCount } from "../../utils/format";
+import Icon from "@/components/common/Icon";
+import { formatCount } from "@/utils/format";
 
 const LikeButton = ({ disabled, liked, likeCount, onClick }) => {
   return (

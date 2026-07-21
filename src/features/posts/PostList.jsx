@@ -1,4 +1,4 @@
-import PostCard from "./PostCard";
+import PostCard from "@/features/posts/PostCard";
 
 const PostList = ({ posts }) => {
   if (!posts.length) {

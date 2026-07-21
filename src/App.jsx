@@ -1,17 +1,17 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import AuthLayout from "./components/layout/AuthLayout";
-import BoardLayout from "./components/layout/BoardLayout";
-import { ROUTES } from "./constants/routes";
-import LoginPage from "./pages/LoginPage";
-import NotFoundPage from "./pages/NotFoundPage";
-import PostCreatePage from "./pages/PostCreatePage";
-import PostDetailPage from "./pages/PostDetailPage";
-import PostEditPage from "./pages/PostEditPage";
-import PostListPage from "./pages/PostListPage";
-import ProfileEditPage from "./pages/ProfileEditPage";
-import SignupPage from "./pages/SignupPage";
-import ProtectedRoute from "./routes/ProtectedRoute";
-import PublicOnlyRoute from "./routes/PublicOnlyRoute";
+import AuthLayout from "@/components/layout/AuthLayout";
+import BoardLayout from "@/components/layout/BoardLayout";
+import { ROUTES } from "@/constants/routes";
+import LoginPage from "@/pages/LoginPage";
+import NotFoundPage from "@/pages/NotFoundPage";
+import PostCreatePage from "@/pages/PostCreatePage";
+import PostDetailPage from "@/pages/PostDetailPage";
+import PostEditPage from "@/pages/PostEditPage";
+import PostListPage from "@/pages/PostListPage";
+import ProfileEditPage from "@/pages/ProfileEditPage";
+import SignupPage from "@/pages/SignupPage";
+import ProtectedRoute from "@/routes/ProtectedRoute";
+import PublicOnlyRoute from "@/routes/PublicOnlyRoute";
 
 const App = () => {
   return (
