@@ -19,7 +19,7 @@ const NotFoundPage = () => {
           to={destination}
           className="mt-6 flex h-11 items-center justify-center rounded-full bg-[#b71422] text-sm font-semibold text-white"
         >
-          돌아가기
+          <span style={{ color: "#ffffff" }}>돌아가기</span>
         </Link>
       </section>
     </main>
