@@ -3,7 +3,7 @@ export * as commentApi from "@/api/comments";
 export * as imageApi from "@/api/images";
 export * as postApi from "@/api/posts";
 export * as userApi from "@/api/users";
-export { getFullImageUrl, request, uploadImage } from "@/api/client";
+export { getFullImageUrl } from "@/api/client";
 export {
   clearAuthSession,
   getAccessToken,

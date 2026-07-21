@@ -1,7 +1,7 @@
 import { API_BASE_URL } from "@/constants/config";
 import { getAccessToken } from "@/api/storage";
 
-export class ApiError extends Error {
+class ApiError extends Error {
   constructor(message, { status, data } = {}) {
     super(message);
     this.name = "ApiError";
@@ -10,7 +10,7 @@ export class ApiError extends Error {
   }
 }
 
-export const getAuthHeaders = () => {
+const getAuthHeaders = () => {
   const accessToken = getAccessToken();
 
   return accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
