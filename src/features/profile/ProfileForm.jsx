@@ -92,7 +92,7 @@ const ProfileForm = ({ profile, onProfileUpdated, onToast }) => {
       noValidate
       onSubmit={handleSubmit}
     >
-      <section className="w-full rounded-xl bg-white p-5 shadow-[0_4px_12px_rgba(0,0,0,0.05)]">
+      <section className="w-full rounded-xl bg-white px-5 py-4 shadow-[0_4px_12px_rgba(0,0,0,0.05)]">
         <div className="flex flex-col items-center">
           <ProfileImagePicker
             currentImageUrl={profileImage}
@@ -105,16 +105,14 @@ const ProfileForm = ({ profile, onProfileUpdated, onToast }) => {
             size="lg"
           />
         </div>
-      </section>
 
-      <section className="w-full rounded-xl bg-white p-5 shadow-[0_4px_12px_rgba(0,0,0,0.05)]">
-        <div className="flex items-center gap-2 text-[#b71422]">
+        <div className="mt-4 flex items-center gap-2 text-[#b71422]">
           <Icon className="text-[21px]">badge</Icon>
           <label
             className="text-sm font-semibold leading-5 tracking-[0.05em]"
             htmlFor="nickname"
           >
-            닉네임
+            닉네임 변경
           </label>
         </div>
         <input
@@ -139,7 +137,7 @@ const ProfileForm = ({ profile, onProfileUpdated, onToast }) => {
         )}
         <button
           type="submit"
-          className={`mt-6 flex h-10 w-fit min-w-[108px] items-center justify-center gap-1.5 rounded-full px-5 text-xs font-bold leading-4 text-white transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-55 ${
+          className={`mt-6 flex h-10 w-fit min-w-[108px] items-center justify-center gap-1.5 rounded-full px-5 text-xs font-bold leading-4 text-white transition active:scale-[0.98] disabled:cursor-not-allowed ${
             canSubmit ? "bg-[#b71422] hover:bg-[#930014]" : "bg-[#c8c6c6]"
           }`}
           disabled={isSubmitting || !canSubmit}

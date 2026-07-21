@@ -50,7 +50,7 @@ const ProfileImagePicker = ({
   };
 
   const imageStyle = previewUrl ? { backgroundImage: `url(${previewUrl})` } : undefined;
-  const sizeClass = size === "lg" ? "h-32 w-32" : "h-24 w-24";
+  const sizeClass = size === "lg" ? "h-28 w-28" : "h-24 w-24";
   const canRemove = Boolean(previewUrl);
   const canChangeByImageClick = size !== "lg" && previewUrl;
 
@@ -109,7 +109,7 @@ const ProfileImagePicker = ({
           </button>
         )}
       </div>
-      <p className="mt-3 text-sm text-[#5f5e5e]">프로필 사진을 등록하세요</p>
+      <p className="mt-2 text-sm text-[#5f5e5e]">프로필 사진을 등록하세요</p>
       <p
         className={`mt-1 min-h-5 text-xs leading-5 text-[#ba1a1a] ${
           errorMessage ? "visible" : "invisible"

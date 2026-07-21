@@ -69,7 +69,7 @@ const ProfileEditPage = () => {
   };
 
   return (
-    <main className="min-h-screen bg-[#f8f9fa] px-4 pb-28 pt-24">
+    <main className="min-h-[calc(100vh-7rem)] bg-[#f8f9fa] px-4 pb-4 pt-24">
       <section className="mx-auto w-full max-w-[392px]">
         <div className="mb-6">
           <h2 className="font-['Plus_Jakarta_Sans'] text-2xl font-bold leading-8 text-[#191c1d]">
