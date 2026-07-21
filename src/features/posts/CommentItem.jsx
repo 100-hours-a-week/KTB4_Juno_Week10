@@ -1,6 +1,6 @@
-import { getFullImageUrl } from "../../api";
-import Icon from "../../components/common/Icon";
-import { isWithdrawnAuthorNickname } from "../../utils/normalizers";
+import { getFullImageUrl } from "@/api";
+import Icon from "@/components/common/Icon";
+import { isWithdrawnAuthorNickname } from "@/utils/normalizers";
 
 const CommentItem = ({ comment, isOwner, onDelete, onEdit }) => {
   const profileStyle = comment.authorProfileImage

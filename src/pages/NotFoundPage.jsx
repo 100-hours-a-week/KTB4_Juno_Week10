@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { isAuthenticated } from "../api/storage";
-import { ROUTES } from "../constants/routes";
+import { isAuthenticated } from "@/api/storage";
+import { ROUTES } from "@/constants/routes";
 
 const NotFoundPage = () => {
   const destination = isAuthenticated() ? ROUTES.posts : ROUTES.login;

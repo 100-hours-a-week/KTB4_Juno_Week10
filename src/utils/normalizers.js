@@ -1,4 +1,4 @@
-import { pickField } from "./object";
+import { pickField } from "@/utils/object";
 
 export const WITHDRAWN_AUTHOR_NICKNAME = "(탈퇴한 사용자)";
 

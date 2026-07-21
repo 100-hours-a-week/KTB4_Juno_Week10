@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Icon from "../components/common/Icon";
-import { postApi } from "../api";
-import { ROUTES } from "../constants/routes";
-import PostList from "../features/posts/PostList";
-import { getPostsFromResponse } from "../utils/normalizers";
+import Icon from "@/components/common/Icon";
+import { postApi } from "@/api";
+import { ROUTES } from "@/constants/routes";
+import PostList from "@/features/posts/PostList";
+import { getPostsFromResponse } from "@/utils/normalizers";
 
 const PostListPage = () => {
   const [posts, setPosts] = useState([]);

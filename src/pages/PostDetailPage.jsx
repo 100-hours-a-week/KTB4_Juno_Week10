@@ -1,20 +1,20 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { commentApi, getCurrentUserId, getFullImageUrl, postApi } from "../api";
-import ConfirmModal from "../components/common/ConfirmModal";
-import Icon from "../components/common/Icon";
-import { ROUTES } from "../constants/routes";
-import CommentForm from "../features/posts/CommentForm";
-import CommentList from "../features/posts/CommentList";
-import LikeButton from "../features/posts/LikeButton";
-import { formatCount } from "../utils/format";
-import { isOwner } from "../utils/auth";
-import { pickField } from "../utils/object";
+import { commentApi, getCurrentUserId, getFullImageUrl, postApi } from "@/api";
+import ConfirmModal from "@/components/common/ConfirmModal";
+import Icon from "@/components/common/Icon";
+import { ROUTES } from "@/constants/routes";
+import CommentForm from "@/features/posts/CommentForm";
+import CommentList from "@/features/posts/CommentList";
+import LikeButton from "@/features/posts/LikeButton";
+import { formatCount } from "@/utils/format";
+import { isOwner } from "@/utils/auth";
+import { pickField } from "@/utils/object";
 import {
   getPostFromResponse,
   isWithdrawnAuthorNickname,
   normalizePostDetail,
-} from "../utils/normalizers";
+} from "@/utils/normalizers";
 
 const PostDetailPage = () => {
   const { postId } = useParams();

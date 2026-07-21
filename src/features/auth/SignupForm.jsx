@@ -6,13 +6,13 @@ import {
   imageApi,
   setAuthSession,
   userApi,
-} from "../../api";
-import { ROUTES } from "../../constants/routes";
+} from "@/api";
+import { ROUTES } from "@/constants/routes";
 import {
   getImageUrlFromResponse,
   getSigninAccessToken,
   getSigninUserId,
-} from "../../utils/normalizers";
+} from "@/utils/normalizers";
 import {
   getSignupEmailErrorMessage,
   getSignupErrors,
@@ -23,9 +23,9 @@ import {
   passwordRegex,
   signupEmailRegex,
   isValidNickname,
-} from "../../utils/validators";
-import AuthField from "./AuthField";
-import ProfileImagePicker from "./ProfileImagePicker";
+} from "@/utils/validators";
+import AuthField from "@/features/auth/AuthField";
+import ProfileImagePicker from "@/features/auth/ProfileImagePicker";
 
 const initialValues = {
   email: "",

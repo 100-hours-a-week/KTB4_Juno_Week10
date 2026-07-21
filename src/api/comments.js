@@ -1,4 +1,4 @@
-import { request } from "./client";
+import { request } from "@/api/client";
 
 export const createComment = (postId, content) => {
   return request(`/posts/${postId}/comments`, {

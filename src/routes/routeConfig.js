@@ -1,11 +1,11 @@
-import { ROUTES } from "../constants/routes";
-import LoginPage from "../pages/LoginPage";
-import PostCreatePage from "../pages/PostCreatePage";
-import PostDetailPage from "../pages/PostDetailPage";
-import PostEditPage from "../pages/PostEditPage";
-import PostListPage from "../pages/PostListPage";
-import ProfileEditPage from "../pages/ProfileEditPage";
-import SignupPage from "../pages/SignupPage";
+import { ROUTES } from "@/constants/routes";
+import LoginPage from "@/pages/LoginPage";
+import PostCreatePage from "@/pages/PostCreatePage";
+import PostDetailPage from "@/pages/PostDetailPage";
+import PostEditPage from "@/pages/PostEditPage";
+import PostListPage from "@/pages/PostListPage";
+import ProfileEditPage from "@/pages/ProfileEditPage";
+import SignupPage from "@/pages/SignupPage";
 
 export const routeConfig = [
   {

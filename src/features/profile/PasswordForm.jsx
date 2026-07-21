@@ -1,12 +1,12 @@
 import { useMemo, useState } from "react";
-import { userApi } from "../../api";
-import Icon from "../../components/common/Icon";
+import { userApi } from "@/api";
+import Icon from "@/components/common/Icon";
 import {
   getProfilePasswordErrors,
   getProfilePasswordLiveErrors,
   hasValidationError,
   passwordRegex,
-} from "../../utils/validators";
+} from "@/utils/validators";
 
 const PasswordInput = ({
   errorMessage,

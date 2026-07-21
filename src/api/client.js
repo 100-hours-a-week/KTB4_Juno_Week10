@@ -1,5 +1,5 @@
-import { API_BASE_URL } from "../constants/config";
-import { getAccessToken } from "./storage";
+import { API_BASE_URL } from "@/constants/config";
+import { getAccessToken } from "@/api/storage";
 
 export class ApiError extends Error {
   constructor(message, { status, data } = {}) {

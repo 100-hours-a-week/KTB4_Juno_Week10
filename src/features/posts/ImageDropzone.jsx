@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
-import { getFullImageUrl } from "../../api";
-import Icon from "../../components/common/Icon";
-import { useImagePreview } from "../../hooks/useImagePreview";
+import { getFullImageUrl } from "@/api";
+import Icon from "@/components/common/Icon";
+import { useImagePreview } from "@/hooks/useImagePreview";
 
 const ImageDropzone = ({
   currentImageUrl = "",

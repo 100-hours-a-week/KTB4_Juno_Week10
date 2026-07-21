@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ROUTES } from "../../constants/routes";
-import Icon from "../common/Icon";
-import ProfileMenu from "./ProfileMenu";
+import { ROUTES } from "@/constants/routes";
+import Icon from "@/components/common/Icon";
+import ProfileMenu from "@/components/layout/ProfileMenu";
 
 const Header = ({ variant = "board" }) => {
   const navigate = useNavigate();

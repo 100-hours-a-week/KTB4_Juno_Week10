@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { getFullImageUrl } from "../../api";
-import { ROUTES } from "../../constants/routes";
+import { getFullImageUrl } from "@/api";
+import { ROUTES } from "@/constants/routes";
 import {
   isWithdrawnAuthorNickname,
   normalizePostListItem,
-} from "../../utils/normalizers";
-import PostStats from "./PostStats";
+} from "@/utils/normalizers";
+import PostStats from "@/features/posts/PostStats";
 
 const PostCard = ({ post }) => {
   const normalizedPost = normalizePostListItem(post);

@@ -1,4 +1,4 @@
-import PlaceholderPage from "../components/common/PlaceholderPage";
+import PlaceholderPage from "@/components/common/PlaceholderPage";
 
 const PasswordEditPage = () => (
   <PlaceholderPage

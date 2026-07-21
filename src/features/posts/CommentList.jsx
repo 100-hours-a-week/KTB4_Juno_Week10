@@ -1,5 +1,5 @@
-import CommentItem from "./CommentItem";
-import { isOwner } from "../../utils/auth";
+import CommentItem from "@/features/posts/CommentItem";
+import { isOwner } from "@/utils/auth";
 
 const CommentList = ({ comments, currentUserId, onDelete, onEdit }) => {
   if (!comments.length) {

@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
-import { ROUTES } from "../../constants/routes";
-import BottomNavigation from "./BottomNavigation";
-import Header from "./Header";
+import { ROUTES } from "@/constants/routes";
+import BottomNavigation from "@/components/layout/BottomNavigation";
+import Header from "@/components/layout/Header";
 
 const BoardLayout = () => {
   const location = useLocation();
