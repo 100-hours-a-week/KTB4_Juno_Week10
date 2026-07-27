@@ -25,3 +25,7 @@ dist-ssr
 
 # Local reference files
 legacy/
+
+.env
+.env.local
+.env.*.local
