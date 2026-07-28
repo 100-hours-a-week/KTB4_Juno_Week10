@@ -4,9 +4,9 @@ import { commentApi, getCurrentUserId, getFullImageUrl, postApi } from "@/api";
 import ConfirmModal from "@/components/common/ConfirmModal";
 import Icon from "@/components/common/Icon";
 import { ROUTES } from "@/constants/routes";
+import BookmarkButton from "@/features/posts/BookmarkButton";
 import CommentForm from "@/features/posts/CommentForm";
 import CommentList from "@/features/posts/CommentList";
-import LikeButton from "@/features/posts/LikeButton";
 import { formatCount } from "@/utils/format";
 import { isOwner } from "@/utils/auth";
 import { pickField } from "@/utils/object";
@@ -23,7 +23,7 @@ const PostDetailPage = () => {
   const [post, setPost] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [isLikeProcessing, setIsLikeProcessing] = useState(false);
+  const [isBookmarkProcessing, setIsBookmarkProcessing] = useState(false);
   const [isCommentSubmitting, setIsCommentSubmitting] = useState(false);
   const [editingComment, setEditingComment] = useState(null);
   const [deletingComment, setDeletingComment] = useState(null);
@@ -79,23 +79,23 @@ const PostDetailPage = () => {
     return isOwner(post?.authorId, currentUserId);
   }, [currentUserId, post?.authorId]);
 
-  const handleToggleLike = async () => {
-    if (!post || isLikeProcessing) {
+  const handleToggleBookmark = async () => {
+    if (!post || isBookmarkProcessing) {
       return;
     }
 
-    setIsLikeProcessing(true);
+    setIsBookmarkProcessing(true);
 
     try {
-      const previousLiked = post.liked;
-      const previousLikeCount = Number(post.likeCount ?? 0);
-      const fallbackLiked = !previousLiked;
-      const fallbackLikeCount = previousLiked
-        ? Math.max(previousLikeCount - 1, 0)
-        : previousLikeCount + 1;
-      const response = previousLiked
-        ? await postApi.unlikePost(post.id)
-        : await postApi.likePost(post.id);
+      const previousBookmarked = post.bookmarked;
+      const previousBookmarkCount = Number(post.bookmarkCount ?? 0);
+      const fallbackBookmarked = !previousBookmarked;
+      const fallbackBookmarkCount = previousBookmarked
+        ? Math.max(previousBookmarkCount - 1, 0)
+        : previousBookmarkCount + 1;
+      const response = previousBookmarked
+        ? await postApi.unbookmarkPost(post.id)
+        : await postApi.bookmarkPost(post.id);
 
       setPost((current) => {
         if (!current) {
@@ -104,16 +104,22 @@ const PostDetailPage = () => {
 
         return {
           ...current,
-          liked: pickField(response?.data, "liked", "isLiked", "is_liked") ?? fallbackLiked,
-          likeCount:
-            pickField(response?.data, "likeCount", "like_count") ??
-            fallbackLikeCount,
+          bookmarked:
+            pickField(
+              response?.data,
+              "bookmarked",
+              "isBookmarked",
+              "is_bookmarked",
+            ) ?? fallbackBookmarked,
+          bookmarkCount:
+            pickField(response?.data, "bookmarkCount", "bookmark_count") ??
+            fallbackBookmarkCount,
         };
       });
     } catch (error) {
       setErrorMessage(error.message);
     } finally {
-      setIsLikeProcessing(false);
+      setIsBookmarkProcessing(false);
     }
   };
 
@@ -277,11 +283,11 @@ const PostDetailPage = () => {
             </p>
 
             <div className="mt-6 flex w-full items-center gap-6 border-t border-[#e4beba]/45 pt-4 max-sm:gap-4 max-sm:overflow-x-auto">
-              <LikeButton
-                liked={post.liked}
-                likeCount={post.likeCount}
-                disabled={isLikeProcessing}
-                onClick={handleToggleLike}
+              <BookmarkButton
+                bookmarked={post.bookmarked}
+                bookmarkCount={post.bookmarkCount}
+                disabled={isBookmarkProcessing}
+                onClick={handleToggleBookmark}
               />
               <div className="flex min-w-0 items-center gap-2 text-[#5f5e5e]">
                 <Icon className="text-[22px]">forum</Icon>

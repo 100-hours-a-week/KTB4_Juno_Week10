@@ -24,18 +24,18 @@ export const deletePost = (postId) => {
   });
 };
 
-export const addLike = (postId) => {
-  return request(`/posts/${postId}/likes`, {
+export const addBookmark = (postId) => {
+  return request(`/posts/${postId}/bookmarks`, {
     method: "POST",
   });
 };
 
-export const deleteLike = (postId) => {
-  return request(`/posts/${postId}/likes`, {
+export const deleteBookmark = (postId) => {
+  return request(`/posts/${postId}/bookmarks`, {
     method: "DELETE",
   });
 };
 
-export const likePost = addLike;
+export const bookmarkPost = addBookmark;
 
-export const unlikePost = deleteLike;
+export const unbookmarkPost = deleteBookmark;

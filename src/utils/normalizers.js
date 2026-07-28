@@ -50,6 +50,22 @@ export const getPostsFromResponse = (response) => {
   return [];
 };
 
+const normalizeBoolean = (value) => {
+  if (typeof value === "boolean") {
+    return value;
+  }
+
+  if (typeof value === "number") {
+    return value !== 0;
+  }
+
+  if (typeof value === "string") {
+    return value.trim().toLowerCase() === "true";
+  }
+
+  return Boolean(value);
+};
+
 export const normalizeAuthorNickname = (nickname) => {
   const value = String(nickname ?? "").trim();
 
@@ -86,14 +102,34 @@ export const normalizePostListItem = (post) => {
         "profile_image",
       ) ?? "",
     createdAt: pickField(post, "createdAt", "created_at") ?? "",
-    likeCount: pickField(post, "likeCount", "like_count") ?? 0,
+    bookmarkCount: pickField(post, "bookmarkCount", "bookmark_count") ?? 0,
     commentCount: pickField(post, "commentCount", "comment_count") ?? 0,
     viewCount: pickField(post, "viewCount", "view_count") ?? 0,
   };
 };
 
-export const getPostFromResponse = (response) =>
-  response?.data ?? response ?? null;
+export const getPostFromResponse = (response) => {
+  const data = response?.data ?? response;
+  const post =
+    pickField(data, "post", "postDetail", "post_detail", "data") ?? data;
+
+  if (
+    post &&
+    data &&
+    post !== data &&
+    typeof post === "object" &&
+    typeof data === "object" &&
+    !Array.isArray(post) &&
+    !Array.isArray(data)
+  ) {
+    return {
+      ...data,
+      ...post,
+    };
+  }
+
+  return post ?? null;
+};
 
 export const normalizeComment = (comment) => {
   return {
@@ -140,12 +176,24 @@ export const normalizePostDetail = (post) => {
         "author_profile_image",
       ) ?? "",
     createdAt: pickField(post, "createdAt", "created_at") ?? "",
-    likeCount: pickField(post, "likeCount", "like_count") ?? 0,
+    bookmarkCount:
+      pickField(post, "bookmarkCount", "bookmark_count", "bookmarksCount") ??
+      0,
     commentCount:
       pickField(post, "commentCount", "comment_count") ??
       normalizedComments.length,
     viewCount: pickField(post, "viewCount", "view_count") ?? 0,
-    liked: Boolean(pickField(post, "liked", "isLiked", "is_liked")),
+    bookmarked: normalizeBoolean(
+      pickField(
+        post,
+        "bookmarked",
+        "isBookmarked",
+        "is_bookmarked",
+        "bookmark",
+        "isBookmark",
+        "is_bookmark",
+      ),
+    ),
     comments: normalizedComments,
   };
 };

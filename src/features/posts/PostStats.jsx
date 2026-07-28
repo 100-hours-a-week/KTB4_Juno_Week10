@@ -3,9 +3,8 @@ import { formatCount } from "@/utils/format";
 
 const stats = [
   {
-    key: "likeCount",
-    icon: "favorite",
-    filled: true,
+    key: "bookmarkCount",
+    icon: "bookmark",
   },
   {
     key: "commentCount",
@@ -17,10 +16,10 @@ const stats = [
   },
 ];
 
-const PostStats = ({ commentCount, likeCount, viewCount }) => {
+const PostStats = ({ bookmarkCount, commentCount, viewCount }) => {
   const values = {
+    bookmarkCount,
     commentCount,
-    likeCount,
     viewCount,
   };
 

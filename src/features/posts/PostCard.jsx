@@ -51,7 +51,7 @@ const PostCard = ({ post }) => {
           </p>
 
           <PostStats
-            likeCount={normalizedPost.likeCount}
+            bookmarkCount={normalizedPost.bookmarkCount}
             commentCount={normalizedPost.commentCount}
             viewCount={normalizedPost.viewCount}
           />
