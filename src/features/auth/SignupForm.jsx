@@ -21,7 +21,7 @@ import {
   getSignupPasswordErrorMessage,
   hasValidationError,
   passwordRegex,
-  signupEmailRegex,
+  emailRegex,
   isValidNickname,
 } from "@/utils/validators";
 import AuthField from "@/features/auth/AuthField";
@@ -41,9 +41,8 @@ const initialErrors = {
   passwordConfirm: "",
 };
 
-const isLoginRequiredMessage = (message) => {
-  return message.includes("로그인") || message.includes("인증");
-};
+const PROFILE_IMAGE_SETUP_FAILED_MESSAGE =
+  "프로필 이미지 설정에 실패했습니다. 로그인 후 마이페이지에서 다시 설정해주세요.";
 
 const SignupForm = () => {
   const navigate = useNavigate();
@@ -56,7 +55,7 @@ const SignupForm = () => {
 
   const isFormValid = useMemo(() => {
     return (
-      signupEmailRegex.test(values.email.trim()) &&
+      emailRegex.test(values.email.trim()) &&
       passwordRegex.test(values.password.trim()) &&
       values.passwordConfirm.trim() &&
       values.password.trim() === values.passwordConfirm.trim() &&
@@ -149,52 +148,46 @@ const SignupForm = () => {
     setIsSubmitting(true);
 
     try {
-      let profileImage = "";
-      let shouldUploadAfterSignup = false;
-
-      if (profileImageFile) {
-        try {
-          const imageResponse = await imageApi.uploadImage(profileImageFile);
-          profileImage = getImageUrlFromResponse(imageResponse);
-        } catch (error) {
-          if (!isLoginRequiredMessage(error.message)) {
-            throw error;
-          }
-
-          shouldUploadAfterSignup = true;
-        }
-      }
-
       await authApi.signup({
         email: values.email.trim(),
         password: values.password.trim(),
         nickname: values.nickname.trim(),
-        profileImage,
+        profileImage: "",
       });
 
-      if (profileImageFile && shouldUploadAfterSignup) {
-        const signinResponse = await authApi.signin({
-          email: values.email.trim(),
-          password: values.password.trim(),
-        });
+      let profileImageSetupFailed = false;
 
-        setAuthSession({
-          userId: getSigninUserId(signinResponse),
-          accessToken: getSigninAccessToken(signinResponse),
-        });
+      if (profileImageFile) {
+        try {
+          const signinResponse = await authApi.signin({
+            email: values.email.trim(),
+            password: values.password.trim(),
+          });
 
-        const imageResponse = await imageApi.uploadImage(profileImageFile);
-        const uploadedProfileImage = getImageUrlFromResponse(imageResponse);
+          setAuthSession({
+            userId: getSigninUserId(signinResponse),
+            accessToken: getSigninAccessToken(signinResponse),
+          });
 
-        await userApi.updateMyProfile({
-          nickname: values.nickname.trim(),
-          profileImage: uploadedProfileImage,
-        });
+          const imageResponse = await imageApi.uploadImage(profileImageFile);
+          const uploadedProfileImage = getImageUrlFromResponse(imageResponse);
 
-        clearAuthSession();
+          await userApi.updateMyProfile({
+            nickname: values.nickname.trim(),
+            profileImage: uploadedProfileImage,
+          });
+        } catch {
+          profileImageSetupFailed = true;
+        } finally {
+          clearAuthSession();
+        }
       }
 
-      alert("회원가입이 완료되었습니다.");
+      alert(
+        profileImageSetupFailed
+          ? PROFILE_IMAGE_SETUP_FAILED_MESSAGE
+          : "회원가입이 완료되었습니다.",
+      );
       navigate(ROUTES.login);
     } catch (error) {
       const message = error.message;
