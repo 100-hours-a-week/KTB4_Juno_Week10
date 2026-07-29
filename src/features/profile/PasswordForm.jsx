@@ -154,7 +154,7 @@ const PasswordForm = ({ onToast }) => {
         className={`mt-6 flex h-10 w-fit min-w-[108px] items-center justify-center gap-1.5 rounded-full px-5 text-xs font-bold leading-4 text-white transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-55 ${
           isFormValid ? "bg-[#b71422] hover:bg-[#930014]" : "bg-[#c8c6c6]"
         }`}
-        disabled={isSubmitting}
+        disabled={!isFormValid || isSubmitting}
       >
         <Icon className="text-[18px]">lock_reset</Icon>
         <span style={{ fontSize: "12px", fontWeight: 800 }}>
