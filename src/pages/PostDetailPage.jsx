@@ -30,24 +30,13 @@ const PostDetailPage = () => {
   const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const loadPost = useCallback(async () => {
+  const fetchPost = useCallback(async () => {
     if (!postId) {
-      setErrorMessage("게시글 정보를 찾을 수 없습니다.");
-      setIsLoading(false);
-      return;
+      throw new Error("게시글 정보를 찾을 수 없습니다.");
     }
 
-    setIsLoading(true);
-    setErrorMessage("");
-
-    try {
-      const response = await postApi.getPost(postId);
-      setPost(normalizePostDetail(getPostFromResponse(response)));
-    } catch (error) {
-      setErrorMessage(error.message);
-    } finally {
-      setIsLoading(false);
-    }
+    const response = await postApi.getPost(postId);
+    return normalizePostDetail(getPostFromResponse(response));
   }, [postId]);
 
   const refreshPostQuietly = useCallback(async () => {
@@ -72,8 +61,34 @@ const PostDetailPage = () => {
   }, [postId]);
 
   useEffect(() => {
+    let ignore = false;
+
+    const loadPost = async () => {
+      try {
+        const nextPost = await fetchPost();
+
+        if (!ignore) {
+          setErrorMessage("");
+          setPost(nextPost);
+        }
+      } catch (error) {
+        if (!ignore) {
+          setErrorMessage(error.message);
+          setPost(null);
+        }
+      } finally {
+        if (!ignore) {
+          setIsLoading(false);
+        }
+      }
+    };
+
     loadPost();
-  }, [loadPost]);
+
+    return () => {
+      ignore = true;
+    };
+  }, [fetchPost]);
 
   const isPostOwner = useMemo(() => {
     return isOwner(post?.authorId, currentUserId);
@@ -125,7 +140,7 @@ const PostDetailPage = () => {
 
   const handleSubmitComment = async (content) => {
     if (!postId) {
-      return;
+      throw new Error("게시글 정보를 찾을 수 없습니다.");
     }
 
     setIsCommentSubmitting(true);
@@ -141,6 +156,7 @@ const PostDetailPage = () => {
       await refreshPostQuietly();
     } catch (error) {
       setErrorMessage(error.message);
+      throw error;
     } finally {
       setIsCommentSubmitting(false);
     }

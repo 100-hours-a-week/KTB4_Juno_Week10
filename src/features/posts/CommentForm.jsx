@@ -20,8 +20,12 @@ const CommentForm = ({ editingComment, isSubmitting, onCancelEdit, onSubmit }) =
       return;
     }
 
-    await onSubmit(trimmedContent);
-    setContent("");
+    try {
+      await onSubmit(trimmedContent);
+      setContent("");
+    } catch {
+      textareaRef.current?.focus();
+    }
   };
 
   const handleCancelEdit = () => {
