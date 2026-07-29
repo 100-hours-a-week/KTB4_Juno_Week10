@@ -21,7 +21,7 @@ import {
   getSignupPasswordErrorMessage,
   hasValidationError,
   passwordRegex,
-  signupEmailRegex,
+  emailRegex,
   isValidNickname,
 } from "@/utils/validators";
 import AuthField from "@/features/auth/AuthField";
@@ -55,7 +55,7 @@ const SignupForm = () => {
 
   const isFormValid = useMemo(() => {
     return (
-      signupEmailRegex.test(values.email.trim()) &&
+      emailRegex.test(values.email.trim()) &&
       passwordRegex.test(values.password.trim()) &&
       values.passwordConfirm.trim() &&
       values.password.trim() === values.passwordConfirm.trim() &&

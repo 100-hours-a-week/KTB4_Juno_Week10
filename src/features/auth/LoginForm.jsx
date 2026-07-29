@@ -2,11 +2,7 @@ import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authApi, setAuthSession } from "@/api";
 import { ROUTES } from "@/constants/routes";
-import {
-  getLoginErrorMessage,
-  passwordRegex,
-  emailRegex,
-} from "@/utils/validators";
+import { getLoginErrorMessage, emailRegex } from "@/utils/validators";
 import { getSigninAccessToken, getSigninUserId } from "@/utils/normalizers";
 import AuthField from "@/features/auth/AuthField";
 
@@ -22,10 +18,7 @@ const LoginForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isFormValid = useMemo(() => {
-    return (
-      emailRegex.test(values.email.trim()) &&
-      passwordRegex.test(values.password.trim())
-    );
+    return emailRegex.test(values.email.trim()) && Boolean(values.password.trim());
   }, [values.email, values.password]);
 
   const updateValue = (field, value) => {
