@@ -14,7 +14,7 @@ export const signup = ({ email, password, nickname, profileImage }) => {
       email,
       password,
       nickname,
-      profile_image: profileImage,
+      profileImage,
     }),
   });
 };
