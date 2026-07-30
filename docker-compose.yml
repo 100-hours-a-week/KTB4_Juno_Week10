@@ -3,7 +3,7 @@ services:
     image: mysql:8.4
     container_name: community-mysql
     environment:
-      MYSQL_DATABASE: community
+      MYSQL_DATABASE: community_db
       MYSQL_USER: community
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -30,7 +30,7 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: docker
 
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/community?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/community_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
       SPRING_DATASOURCE_USERNAME: community
       SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
 
