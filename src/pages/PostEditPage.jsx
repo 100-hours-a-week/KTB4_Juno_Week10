@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { postApi } from "@/api";
 import { ROUTES } from "@/constants/routes";
@@ -12,36 +12,46 @@ const PostEditPage = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(Boolean(postId));
+  const [errorMessage, setErrorMessage] = useState(
+    postId ? "" : "게시글 정보를 찾을 수 없습니다.",
+  );
 
   const detailPath = postId
     ? ROUTES.postDetail.replace(":postId", postId)
     : ROUTES.posts;
 
-  const loadPost = useCallback(async () => {
+  useEffect(() => {
     if (!postId) {
-      setErrorMessage("게시글 정보를 찾을 수 없습니다.");
-      setIsLoading(false);
       return;
     }
 
-    setIsLoading(true);
-    setErrorMessage("");
+    let isCancelled = false;
 
-    try {
-      const response = await postApi.getPost(postId);
-      setPost(normalizePostFormData(getPostFromResponse(response)));
-    } catch (error) {
-      setErrorMessage(error.message);
-    } finally {
-      setIsLoading(false);
-    }
+    const fetchPost = async () => {
+      try {
+        const response = await postApi.getPost(postId);
+
+        if (!isCancelled) {
+          setPost(normalizePostFormData(getPostFromResponse(response)));
+        }
+      } catch (error) {
+        if (!isCancelled) {
+          setErrorMessage(error.message);
+        }
+      } finally {
+        if (!isCancelled) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    void fetchPost();
+
+    return () => {
+      isCancelled = true;
+    };
   }, [postId]);
-
-  useEffect(() => {
-    loadPost();
-  }, [loadPost]);
 
   const handleSubmit = async (formData) => {
     await postApi.updatePost(postId, formData);

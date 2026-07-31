@@ -1,10 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  clearAuthSession,
-  getAccessToken,
-  userApi,
-} from "@/api";
+import { clearAuthSession, getAccessToken, userApi } from "@/api";
 import ConfirmModal from "@/components/common/ConfirmModal";
 import Toast from "@/components/common/Toast";
 import { ROUTES } from "@/constants/routes";
@@ -30,28 +26,38 @@ const ProfileEditPage = () => {
     }, 2000);
   }, []);
 
-  const loadProfile = useCallback(async () => {
+  useEffect(() => {
     if (!getAccessToken()) {
       navigate(ROUTES.login, { replace: true });
       return;
     }
 
-    setIsLoading(true);
-    setErrorMessage("");
+    let isCancelled = false;
 
-    try {
-      const response = await userApi.getMyProfile();
-      setProfile(normalizeMyProfile(response.data));
-    } catch (error) {
-      setErrorMessage(error.message);
-    } finally {
-      setIsLoading(false);
-    }
+    const fetchProfile = async () => {
+      try {
+        const response = await userApi.getMyProfile();
+
+        if (!isCancelled) {
+          setProfile(normalizeMyProfile(response.data));
+        }
+      } catch (error) {
+        if (!isCancelled) {
+          setErrorMessage(error.message);
+        }
+      } finally {
+        if (!isCancelled) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    void fetchProfile();
+
+    return () => {
+      isCancelled = true;
+    };
   }, [navigate]);
-
-  useEffect(() => {
-    loadProfile();
-  }, [loadProfile]);
 
   const handleWithdraw = async () => {
     setIsWithdrawing(true);
