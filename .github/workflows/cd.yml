@@ -1,9 +1,9 @@
-name: Continuous Deployment
+name: Frontend CD - Deploy to EC2
 
 on:
   workflow_run:
     workflows:
-      - Check Frontend Build
+      - Frontend CI - Build and Lint
     types:
       - completed
     branches:

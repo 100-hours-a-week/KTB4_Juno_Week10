@@ -1,4 +1,4 @@
-name: Check Frontend Build
+name: Frontend CI - Build and Lint
 
 on:
   pull_request:
