@@ -1,6 +1,23 @@
 import { request } from "@/api/client";
 
-export const getPosts = () => request("/posts");
+export const getPosts = ({
+  keyword = "",
+  sort = "latest",
+  page = 0,
+  size = 10,
+} = {}) => {
+  const params = new URLSearchParams();
+
+  if (keyword.trim()) {
+    params.set("keyword", keyword.trim());
+  }
+
+  params.set("sort", sort);
+  params.set("page", String(page));
+  params.set("size", String(size));
+
+  return request(`/posts?${params.toString()}`);
+};
 
 export const getPost = (postId) => request(`/posts/${postId}`);
 
