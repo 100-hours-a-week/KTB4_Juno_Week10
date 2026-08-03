@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import { isAuthenticated } from "@/api/storage";
 import AuthLayout from "@/components/layout/AuthLayout";
 import BoardLayout from "@/components/layout/BoardLayout";
 import { ROUTES } from "@/constants/routes";
@@ -13,10 +14,14 @@ import SignupPage from "@/pages/SignupPage";
 import ProtectedRoute from "@/routes/ProtectedRoute";
 import PublicOnlyRoute from "@/routes/PublicOnlyRoute";
 
+const RootRedirect = () => {
+  return <Navigate to={isAuthenticated() ? ROUTES.posts : ROUTES.login} replace />;
+};
+
 const App = () => {
   return (
     <Routes>
-      <Route path={ROUTES.root} element={<Navigate to={ROUTES.posts} replace />} />
+      <Route path={ROUTES.root} element={<RootRedirect />} />
 
       <Route element={<PublicOnlyRoute />}>
         <Route element={<AuthLayout />}>
