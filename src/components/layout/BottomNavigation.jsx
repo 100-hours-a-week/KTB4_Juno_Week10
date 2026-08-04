@@ -1,6 +1,12 @@
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { ROUTES } from "@/constants/routes";
 import Icon from "@/components/common/Icon";
+import {
+  hasUnreadBookmarks,
+  markBookmarkRead,
+  subscribeBookmarkUnreadChanged,
+} from "@/utils/bookmarkEvents";
 
 const navigationItems = [
   {
@@ -31,13 +37,23 @@ const navigationItems = [
 const baseClass =
   "flex min-w-[64px] flex-col items-center justify-center rounded-full px-2 py-1 transition active:scale-90";
 
-const navIconClass = "flex h-6 w-6 items-center justify-center text-[24px] leading-none";
+const navIconClass =
+  "flex h-6 w-6 items-center justify-center text-[24px] leading-none";
 
 const navLabelClass =
   "mt-0.5 block h-4 whitespace-nowrap text-center text-[12px] font-semibold leading-4";
 
 const BottomNavigation = () => {
   const activeColor = "#b71422";
+  const [hasUnreadBookmark, setHasUnreadBookmark] = useState(() =>
+    hasUnreadBookmarks(),
+  );
+
+  useEffect(() => {
+    return subscribeBookmarkUnreadChanged((event) => {
+      setHasUnreadBookmark(Boolean(event.detail?.hasUnread));
+    });
+  }, []);
 
   return (
     <nav
@@ -64,21 +80,34 @@ const BottomNavigation = () => {
           <NavLink
             key={item.label}
             to={item.to}
+            onClick={
+              item.to === ROUTES.bookmarks ? markBookmarkRead : undefined
+            }
             className={({ isActive }) =>
               `${baseClass} group ${isActive ? "" : "text-[#5f5e5e]"}`
             }
           >
             {({ isActive }) => (
               <>
-                <Icon
-                  className={`${navIconClass} ${
-                    isActive ? "" : "group-hover:text-[#b71422]"
-                  }`}
-                  filled={isActive}
-                  style={isActive ? { color: activeColor } : undefined}
-                >
-                  {item.icon}
-                </Icon>
+                <span className="relative flex h-6 w-6 items-center justify-center">
+                  <Icon
+                    className={`${navIconClass} ${
+                      isActive ? "" : "group-hover:text-[#b71422]"
+                    }`}
+                    filled={isActive}
+                    style={isActive ? { color: activeColor } : undefined}
+                  >
+                    {item.icon}
+                  </Icon>
+                  {item.to === ROUTES.bookmarks &&
+                    hasUnreadBookmark &&
+                    !isActive && (
+                      <span
+                        className="absolute -right-1 top-0 h-1.5 w-1.5 rounded-full bg-[#ba1a1a]"
+                        aria-hidden="true"
+                      />
+                    )}
+                </span>
                 <span
                   className={`${navLabelClass} ${
                     isActive ? "" : "group-hover:text-[#b71422]"
