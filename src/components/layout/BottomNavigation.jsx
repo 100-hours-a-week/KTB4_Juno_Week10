@@ -17,7 +17,8 @@ const navigationItems = [
   {
     label: "북마크",
     icon: "bookmark",
-    disabled: true,
+    to: ROUTES.bookmarks,
+    matches: (pathname) => pathname.startsWith("/bookmarks"),
   },
   {
     label: "마이페이지",

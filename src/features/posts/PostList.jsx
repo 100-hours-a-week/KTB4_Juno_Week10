@@ -1,10 +1,10 @@
 import PostCard from "@/features/posts/PostCard";
 
-const PostList = ({ posts }) => {
+const PostList = ({ posts, emptyMessage = "아직 작성된 게시글이 없습니다." }) => {
   if (!posts.length) {
     return (
       <p className="mt-20 w-full text-center text-lg leading-7 text-[#5f5e5e]">
-        아직 작성된 게시글이 없습니다.
+        {emptyMessage}
       </p>
     );
   }

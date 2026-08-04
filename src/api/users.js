@@ -2,6 +2,8 @@ import { request } from "@/api/client";
 
 export const getMyProfile = () => request("/users/me");
 
+export const getMyBookmarks = () => request("/users/me/bookmarks");
+
 export const updateMyProfile = ({ nickname, profileImage }) => {
   return request("/users/me", {
     method: "PATCH",
