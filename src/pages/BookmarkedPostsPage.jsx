@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { userApi } from "@/api";
 import Icon from "@/components/common/Icon";
 import PostList from "@/features/posts/PostList";
+import { markBookmarkRead } from "@/utils/bookmarkEvents";
 import { getPostsFromResponse } from "@/utils/normalizers";
 import { pickField } from "@/utils/object";
 
@@ -72,6 +73,8 @@ const BookmarkedPostsPage = () => {
   }, [posts, sort]);
 
   useEffect(() => {
+    markBookmarkRead();
+
     let ignore = false;
 
     const loadBookmarks = async () => {

@@ -9,6 +9,7 @@ import CommentForm from "@/features/posts/CommentForm";
 import CommentList from "@/features/posts/CommentList";
 import { formatCount } from "@/utils/format";
 import { isOwner } from "@/utils/auth";
+import { markBookmarkRead, markBookmarkUnread } from "@/utils/bookmarkEvents";
 import { pickField } from "@/utils/object";
 import {
   getPostFromResponse,
@@ -111,6 +112,8 @@ const PostDetailPage = () => {
       const response = previousBookmarked
         ? await postApi.unbookmarkPost(post.id)
         : await postApi.bookmarkPost(post.id);
+      const nextBookmarked =
+        pickField(response?.data, "bookmarked") ?? fallbackBookmarked;
 
       setPost((current) => {
         if (!current) {
@@ -119,18 +122,19 @@ const PostDetailPage = () => {
 
         return {
           ...current,
-          bookmarked:
-            pickField(
-              response?.data,
-              "bookmarked",
-              "isBookmarked",
-              "is_bookmarked",
-            ) ?? fallbackBookmarked,
+          bookmarked: nextBookmarked,
           bookmarkCount:
-            pickField(response?.data, "bookmarkCount", "bookmark_count") ??
-            fallbackBookmarkCount,
+            pickField(response?.data, "bookmark_count") ?? fallbackBookmarkCount,
         };
       });
+
+      if (!previousBookmarked && nextBookmarked) {
+        markBookmarkUnread();
+      }
+
+      if (previousBookmarked && !nextBookmarked) {
+        markBookmarkRead();
+      }
     } catch (error) {
       setErrorMessage(error.message);
     } finally {
