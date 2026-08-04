@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Icon from "@/components/common/Icon";
+import SearchInput from "@/components/common/SearchInput";
 import { postApi } from "@/api";
 import { ROUTES } from "@/constants/routes";
 import PostList from "@/features/posts/PostList";
+import { getPostsFromResponse } from "@/utils/normalizers";
+import { pickField } from "@/utils/object";
 
 const SORT_OPTIONS = [
   { value: "latest", label: "최신순" },
@@ -27,6 +30,9 @@ const INITIAL_PAGE_INFO = {
 
 const PostListPage = () => {
   const [posts, setPosts] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [submittedKeyword, setSubmittedKeyword] = useState("");
+  const [searchRequestCount, setSearchRequestCount] = useState(0);
   const [sort, setSort] = useState("latest");
   const [page, setPage] = useState(0);
   const [pageInfo, setPageInfo] = useState(INITIAL_PAGE_INFO);
@@ -36,6 +42,7 @@ const PostListPage = () => {
 
   const selectedSortLabel =
     SORT_OPTIONS.find((option) => option.value === sort)?.label ?? "최신순";
+  const hasSubmittedSearch = Boolean(submittedKeyword);
 
   useEffect(() => {
     let ignore = false;
@@ -46,6 +53,7 @@ const PostListPage = () => {
 
       try {
         const response = await postApi.getPosts({
+          keyword: submittedKeyword,
           sort,
           page,
           size: POST_PAGE_SIZE,
@@ -53,17 +61,25 @@ const PostListPage = () => {
 
         if (!ignore) {
           const responseData = response.data;
+          const responsePosts = getPostsFromResponse(response);
+          const totalPages = pickField(responseData, "totalPages", "total_pages");
+          const totalElements = pickField(
+            responseData,
+            "totalElements",
+            "total_elements",
+          );
 
-          setPosts(responseData.posts);
+          setPosts(responsePosts);
           setPageInfo({
-            page: responseData.page,
-            size: responseData.size,
-            totalPages: responseData.total_pages,
-            totalElements: responseData.total_elements,
-            first: responseData.first,
-            last: responseData.last,
-            hasNext: responseData.has_next,
-            hasPrevious: responseData.has_previous,
+            page: pickField(responseData, "page") ?? 0,
+            size: pickField(responseData, "size") ?? responsePosts.length,
+            totalPages: totalPages ?? 0,
+            totalElements: totalElements ?? responsePosts.length,
+            first: pickField(responseData, "first") ?? true,
+            last: pickField(responseData, "last") ?? true,
+            hasNext: pickField(responseData, "hasNext", "has_next") ?? false,
+            hasPrevious:
+              pickField(responseData, "hasPrevious", "has_previous") ?? false,
           });
         }
       } catch (error) {
@@ -82,7 +98,26 @@ const PostListPage = () => {
     return () => {
       ignore = true;
     };
-  }, [page, sort]);
+  }, [page, searchRequestCount, sort, submittedKeyword]);
+
+  const handleSearchSubmit = () => {
+    const nextKeyword = searchInput.trim();
+
+    if (!nextKeyword) {
+      return;
+    }
+
+    setSubmittedKeyword(nextKeyword);
+    setPage(0);
+    setSearchRequestCount((current) => current + 1);
+  };
+
+  const handleSearchReset = () => {
+    setSearchInput("");
+    setSubmittedKeyword("");
+    setPage(0);
+    setSearchRequestCount((current) => current + 1);
+  };
 
   const handleSortChange = (nextSort) => {
     setSort(nextSort);
@@ -109,6 +144,19 @@ const PostListPage = () => {
             <p className="mt-1 text-base leading-6 text-[#5f5e5e]">
               다른 사용자들과 자유롭게 이야기를 나눠보세요.
             </p>
+          </div>
+
+          <div className="mb-4">
+            <SearchInput
+              id="post-search"
+              value={searchInput}
+              placeholder="제목 또는 본문 검색"
+              disabled={isLoading}
+              showReset={Boolean(searchInput || hasSubmittedSearch)}
+              onChange={setSearchInput}
+              onSubmit={handleSearchSubmit}
+              onReset={handleSearchReset}
+            />
           </div>
 
           <div className="mb-2 flex w-full gap-3 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -170,14 +218,18 @@ const PostListPage = () => {
 
           {isLoading && (
             <div className="rounded-xl bg-white p-6 text-center text-base text-[#5f5e5e] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_4px_14px_rgba(0,0,0,0.04)]">
-              게시글을 불러오는 중입니다.
+              {hasSubmittedSearch
+                ? "검색 결과를 불러오는 중입니다."
+                : "게시글을 불러오는 중입니다."}
             </div>
           )}
 
           {!isLoading && errorMessage && (
             <div className="rounded-xl border border-[#e4beba] bg-white p-6 text-center">
               <p className="text-base font-semibold text-[#ba1a1a]">
-                게시글을 불러오지 못했습니다.
+                {hasSubmittedSearch
+                  ? "검색 결과를 불러오지 못했습니다."
+                  : "게시글을 불러오지 못했습니다."}
               </p>
               <p className="mt-2 text-sm text-[#5f5e5e]">{errorMessage}</p>
             </div>
@@ -185,7 +237,14 @@ const PostListPage = () => {
 
           {!isLoading && !errorMessage && (
             <>
-              <PostList posts={posts} />
+              <PostList
+                posts={posts}
+                emptyMessage={
+                  hasSubmittedSearch
+                    ? "검색 결과가 없습니다."
+                    : "아직 작성된 게시글이 없습니다."
+                }
+              />
 
               {pageInfo.totalPages > 0 && (
                 <div className="mt-5 flex items-center justify-center gap-3">
