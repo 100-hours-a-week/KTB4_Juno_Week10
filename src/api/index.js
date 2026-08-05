@@ -1,4 +1,5 @@
 export * as authApi from "@/api/auth";
+export * as categoryApi from "@/api/categories";
 export * as commentApi from "@/api/comments";
 export * as imageApi from "@/api/images";
 export * as postApi from "@/api/posts";
