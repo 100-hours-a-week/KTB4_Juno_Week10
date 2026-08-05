@@ -84,6 +84,21 @@ export const isWithdrawnAuthorNickname = (nickname) => {
   return nickname === WITHDRAWN_AUTHOR_NICKNAME;
 };
 
+export const normalizeCategory = (category) => {
+  return {
+    id: category.category_id,
+    name: category.name ?? "",
+  };
+};
+
+export const normalizeCategories = (categories) => {
+  if (!Array.isArray(categories)) {
+    return [];
+  }
+
+  return categories.map(normalizeCategory).filter((category) => category.id);
+};
+
 export const normalizePostListItem = (post) => {
   return {
     id: getPostId(post),
@@ -105,6 +120,7 @@ export const normalizePostListItem = (post) => {
     bookmarkCount: pickField(post, "bookmarkCount", "bookmark_count") ?? 0,
     commentCount: pickField(post, "commentCount", "comment_count") ?? 0,
     viewCount: pickField(post, "viewCount", "view_count") ?? 0,
+    categories: normalizeCategories(pickField(post, "categories")),
   };
 };
 
@@ -183,6 +199,7 @@ export const normalizePostDetail = (post) => {
       pickField(post, "commentCount", "comment_count") ??
       normalizedComments.length,
     viewCount: pickField(post, "viewCount", "view_count") ?? 0,
+    categories: normalizeCategories(pickField(post, "categories")),
     bookmarked: normalizeBoolean(
       pickField(
         post,
