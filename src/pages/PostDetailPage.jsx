@@ -7,6 +7,7 @@ import { ROUTES } from "@/constants/routes";
 import BookmarkButton from "@/features/posts/BookmarkButton";
 import CommentForm from "@/features/posts/CommentForm";
 import CommentList from "@/features/posts/CommentList";
+import PostCategoryTags from "@/features/posts/PostCategoryTags";
 import { formatCount } from "@/utils/format";
 import { isOwner } from "@/utils/auth";
 import { markBookmarkRead, markBookmarkUnread } from "@/utils/bookmarkEvents";
@@ -301,6 +302,8 @@ const PostDetailPage = () => {
             <p className="mt-6 min-h-[100px] whitespace-pre-wrap break-words text-lg leading-7 text-[#5b403e] max-sm:text-base max-sm:leading-6">
               {post.content}
             </p>
+
+            <PostCategoryTags categories={post.categories} className="mt-5" />
 
             <div className="mt-6 flex w-full items-center gap-6 border-t border-[#e4beba]/45 pt-4 max-sm:gap-4 max-sm:overflow-x-auto">
               <BookmarkButton

@@ -5,6 +5,7 @@ import {
   isWithdrawnAuthorNickname,
   normalizePostListItem,
 } from "@/utils/normalizers";
+import PostCategoryTags from "@/features/posts/PostCategoryTags";
 import PostStats from "@/features/posts/PostStats";
 
 const PostCard = ({ post }) => {
@@ -49,6 +50,11 @@ const PostCard = ({ post }) => {
           <p className="mt-1 line-clamp-2 text-base leading-6 text-[#5f5e5e]">
             {normalizedPost.content}
           </p>
+
+          <PostCategoryTags
+            categories={normalizedPost.categories}
+            className="mt-3"
+          />
 
           <PostStats
             bookmarkCount={normalizedPost.bookmarkCount}
