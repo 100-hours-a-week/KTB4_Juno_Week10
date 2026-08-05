@@ -14,6 +14,7 @@ const FEATURED_POST_RULES = [
     key: "bookmarks",
     sort: "bookmarks",
     badge: "너도? 나도! 저장",
+    icon: "bookmark",
   },
   {
     key: "comments",
