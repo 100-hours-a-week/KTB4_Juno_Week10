@@ -15,7 +15,7 @@ const CategoryCard = ({ category, description }) => {
       )}
 
       <div className="mt-3 flex items-start justify-between gap-2">
-        <h3 className="break-keep text-xl font-normal leading-7 text-[#191c1d]">
+        <h3 className="break-keep text-lg font-bold leading-6 text-[#191c1d]">
           {category.name}
         </h3>
       </div>
