@@ -12,13 +12,14 @@ const navigationItems = [
   {
     label: "홈",
     icon: "home",
-    disabled: true,
-  },
-  {
-    label: "게시판",
-    icon: "forum",
     to: ROUTES.posts,
     matches: (pathname) => pathname.startsWith("/posts"),
+  },
+  {
+    label: "카테고리",
+    icon: "category",
+    to: ROUTES.categories,
+    matches: (pathname) => pathname.startsWith("/categories"),
   },
   {
     label: "북마크",

@@ -6,6 +6,7 @@ import { ROUTES } from "@/constants/routes";
 import LoginPage from "@/pages/LoginPage";
 import NotFoundPage from "@/pages/NotFoundPage";
 import BookmarkedPostsPage from "@/pages/BookmarkedPostsPage";
+import CategoryPage from "@/pages/CategoryPage";
 import PostCreatePage from "@/pages/PostCreatePage";
 import PostDetailPage from "@/pages/PostDetailPage";
 import PostEditPage from "@/pages/PostEditPage";
@@ -34,6 +35,7 @@ const App = () => {
       <Route element={<ProtectedRoute />}>
         <Route element={<BoardLayout />}>
           <Route path={ROUTES.posts} element={<PostListPage />} />
+          <Route path={ROUTES.categories} element={<CategoryPage />} />
           <Route path={ROUTES.bookmarks} element={<BookmarkedPostsPage />} />
           <Route path={ROUTES.postCreate} element={<PostCreatePage />} />
           <Route path={ROUTES.postDetail} element={<PostDetailPage />} />
