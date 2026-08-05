@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { getFullImageUrl, postApi } from "@/api";
 import defaultImage from "@/assets/default.png";
+import Icon from "@/components/common/Icon";
 import { ROUTES } from "@/constants/routes";
 import {
   getPostsFromResponse,
@@ -18,11 +19,13 @@ const FEATURED_POST_RULES = [
     key: "comments",
     sort: "comments",
     badge: "댓글이 가장 많은",
+    icon: "forum",
   },
   {
     key: "views",
     sort: "views",
     badge: "조회수 폭발",
+    icon: "visibility",
   },
 ];
 
@@ -43,6 +46,7 @@ const getUniqueFeaturedPosts = (responses) => {
       return {
         ...post,
         badge: FEATURED_POST_RULES[index].badge,
+        badgeIcon: FEATURED_POST_RULES[index].icon,
       };
     })
     .filter(Boolean);
@@ -216,8 +220,13 @@ const FeaturedPostSlider = () => {
             <div key={post.id} className="w-full shrink-0 snap-center pr-1">
               <article className="flex min-h-[178px] gap-4 rounded-[28px] border border-[#ffd7d7] bg-white p-5">
                 <div className="flex min-w-0 flex-1 flex-col">
-                  <span className="mb-2 inline-flex w-fit rounded-full bg-[#fff1f1] px-3 py-1 text-xs font-bold leading-4 text-[#e82929]">
+                  <span className="mb-2 inline-flex w-fit items-center gap-1 rounded-full bg-[#fff1f1] px-3 py-1 text-xs font-bold leading-4 text-[#e82929]">
                     {post.badge}
+                    {post.badgeIcon && (
+                      <Icon className="text-[13px] leading-none">
+                        {post.badgeIcon}
+                      </Icon>
+                    )}
                   </span>
 
                   <h3 className="line-clamp-2 break-keep text-lg font-bold leading-6 text-[#191c1d]">
