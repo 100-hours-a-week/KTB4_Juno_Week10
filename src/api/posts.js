@@ -21,17 +21,20 @@ export const getPosts = ({
 
 export const getPost = (postId) => request(`/posts/${postId}`);
 
-export const createPost = ({ title, content, image }) => {
+export const createPost = ({ title, content, image, categoryIds = [] }) => {
   return request("/posts", {
     method: "POST",
-    body: JSON.stringify({ title, content, image }),
+    body: JSON.stringify({ title, content, image, categoryIds }),
   });
 };
 
-export const updatePost = (postId, { title, content, image }) => {
+export const updatePost = (
+  postId,
+  { title, content, image, categoryIds = [] },
+) => {
   return request(`/posts/${postId}`, {
     method: "PATCH",
-    body: JSON.stringify({ title, content, image }),
+    body: JSON.stringify({ title, content, image, categoryIds }),
   });
 };
 

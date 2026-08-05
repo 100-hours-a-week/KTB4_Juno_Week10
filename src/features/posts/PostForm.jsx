@@ -1,8 +1,9 @@
-import { useState } from "react";
-import { imageApi } from "@/api";
+import { useEffect, useState } from "react";
+import { categoryApi, imageApi } from "@/api";
 import FixedActionBar from "@/components/common/FixedActionBar";
 import { ROUTES } from "@/constants/routes";
 import { getImageUrlFromResponse } from "@/utils/normalizers";
+import CategorySelector from "@/features/posts/CategorySelector";
 import ImageDropzone from "@/features/posts/ImageDropzone";
 
 const validatePostForm = ({ title, content }) => {
@@ -26,6 +27,7 @@ const validatePostForm = ({ title, content }) => {
 
 const PostForm = ({
   cancelTo = ROUTES.posts,
+  initialCategoryIds = [],
   initialContent = "",
   initialImage = "",
   initialTitle = "",
@@ -34,11 +36,48 @@ const PostForm = ({
 }) => {
   const [title, setTitle] = useState(initialTitle);
   const [content, setContent] = useState(initialContent);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategoryIds, setSelectedCategoryIds] =
+    useState(initialCategoryIds);
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentImage, setCurrentImage] = useState(initialImage);
   const [isImageRemoved, setIsImageRemoved] = useState(!initialImage);
   const [helperMessage, setHelperMessage] = useState("");
+  const [categoryErrorMessage, setCategoryErrorMessage] = useState("");
+  const [isCategoryLoading, setIsCategoryLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    let ignore = false;
+
+    const loadCategories = async () => {
+      setIsCategoryLoading(true);
+      setCategoryErrorMessage("");
+
+      try {
+        const response = await categoryApi.getCategories();
+        const responseCategories = response.data.categories ?? [];
+
+        if (!ignore) {
+          setCategories(responseCategories);
+        }
+      } catch (error) {
+        if (!ignore) {
+          setCategoryErrorMessage(error.message);
+        }
+      } finally {
+        if (!ignore) {
+          setIsCategoryLoading(false);
+        }
+      }
+    };
+
+    loadCategories();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -74,6 +113,7 @@ const PostForm = ({
         title: title.trim(),
         content: content.trim(),
         image,
+        categoryIds: selectedCategoryIds,
       });
     } catch (error) {
       setHelperMessage(`*${error.message}`);
@@ -102,9 +142,28 @@ const PostForm = ({
     setHelperMessage("");
   };
 
+  const handleCategoryToggle = (categoryId) => {
+    setSelectedCategoryIds((currentIds) => {
+      if (currentIds.includes(categoryId)) {
+        return currentIds.filter((id) => id !== categoryId);
+      }
+
+      if (currentIds.length >= 3) {
+        return currentIds;
+      }
+
+      return [...currentIds, categoryId];
+    });
+  };
+
   return (
     <>
-      <form id="postForm" className="flex w-full flex-col gap-6" noValidate onSubmit={handleSubmit}>
+      <form
+        id="postForm"
+        className="flex w-full flex-col gap-6"
+        noValidate
+        onSubmit={handleSubmit}
+      >
         <div className="w-full">
           <label
             className="mb-2 ml-1 block text-sm font-semibold leading-5 tracking-[0.05em] text-[#5b403e]"
@@ -153,6 +212,15 @@ const PostForm = ({
             }}
           />
         </div>
+
+        <CategorySelector
+          categories={categories}
+          disabled={isSubmitting}
+          errorMessage={categoryErrorMessage}
+          isLoading={isCategoryLoading}
+          selectedCategoryIds={selectedCategoryIds}
+          onToggle={handleCategoryToggle}
+        />
 
         <p className="-mt-3 min-h-[18px] px-1 text-xs leading-[18px] text-[#ba1a1a]">
           {helperMessage}
