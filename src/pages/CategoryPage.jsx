@@ -51,7 +51,7 @@ const CategoryPage = () => {
   }, []);
 
   return (
-    <main className="-mb-28 min-h-screen bg-[#fff4f4] px-5 pb-36 pt-24">
+    <main className="-mb-28 min-h-screen bg-[#fff4f4] px-5 pb-36 pt-20">
       <section className="mx-auto w-full max-w-[390px]">
         <FeaturedPostSlider />
 
