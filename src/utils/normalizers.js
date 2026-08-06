@@ -121,6 +121,17 @@ export const normalizePostListItem = (post) => {
     commentCount: pickField(post, "commentCount", "comment_count") ?? 0,
     viewCount: pickField(post, "viewCount", "view_count") ?? 0,
     categories: normalizeCategories(pickField(post, "categories")),
+    bookmarked: normalizeBoolean(
+      pickField(
+        post,
+        "bookmarked",
+        "isBookmarked",
+        "is_bookmarked",
+        "bookmark",
+        "isBookmark",
+        "is_bookmark",
+      ),
+    ),
   };
 };
 

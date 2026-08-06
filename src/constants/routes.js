@@ -4,6 +4,7 @@ export const ROUTES = {
   signup: "/signup",
   posts: "/posts",
   categories: "/categories",
+  categoryPosts: "/categories/:categoryId",
   bookmarks: "/bookmarks",
   postCreate: "/posts/new",
   postDetail: "/posts/:postId",
