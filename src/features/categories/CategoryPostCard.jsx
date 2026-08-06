@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { getFullImageUrl, postApi } from "@/api";
 import defaultImage from "@/assets/default.png";
 import Icon from "@/components/common/Icon";
+import { getCategoryStyle } from "@/constants/categoryStyles";
 import { ROUTES } from "@/constants/routes";
 import { formatCount } from "@/utils/format";
 import { markBookmarkRead, markBookmarkUnread } from "@/utils/bookmarkEvents";
@@ -98,7 +99,8 @@ const CategoryPostCard = ({ post }) => {
               {normalizedPost.categories.slice(0, 2).map((category) => (
                 <span
                   key={category.id}
-                  className="rounded-full bg-[#fff1ed] px-3 py-1 text-[11px] font-semibold leading-4 text-[#d72020]"
+                  className="rounded-full px-3 py-1 text-[11px] font-semibold leading-4"
+                  style={getCategoryStyle(category.name)}
                 >
                   #{category.name}
                 </span>

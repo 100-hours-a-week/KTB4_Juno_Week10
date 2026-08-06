@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { categoryApi, postApi } from "@/api";
 import { getCategoryStyle } from "@/constants/categoryStyles";
 import CategoryPostCard from "@/features/categories/CategoryPostCard";
-import { getPostsFromResponse } from "@/utils/normalizers";
+import {
+  getPostsFromResponse,
+  normalizePostListItem,
+} from "@/utils/normalizers";
 
 const POST_PAGE_SIZE = 10;
 
@@ -13,6 +16,7 @@ const CategoryPostListPage = () => {
   const categoryNameFromState = location.state?.categoryName;
   const [posts, setPosts] = useState([]);
   const [fetchedCategoryTitle, setFetchedCategoryTitle] = useState("");
+  const [showOnlyCurrentCategory, setShowOnlyCurrentCategory] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const hasCategoryId = Boolean(categoryId);
@@ -24,6 +28,23 @@ const CategoryPostListPage = () => {
   const currentErrorMessage = hasCategoryId
     ? errorMessage
     : "카테고리 정보를 찾을 수 없습니다.";
+  const visiblePosts = useMemo(() => {
+    if (!showOnlyCurrentCategory) {
+      return posts;
+    }
+
+    return posts.filter((post) => {
+      const categories = normalizePostListItem(post).categories;
+
+      return (
+        categories.length === 1 &&
+        String(categories[0].id) === String(categoryId)
+      );
+    });
+  }, [categoryId, posts, showOnlyCurrentCategory]);
+  const emptyMessage = showOnlyCurrentCategory
+    ? `${categoryTitle}에만 속한 게시글이 없습니다.`
+    : "해당 카테고리에 등록된 게시글이 없습니다.";
 
   useEffect(() => {
     if (!categoryId) {
@@ -107,11 +128,25 @@ const CategoryPostListPage = () => {
     <main className="min-h-screen bg-[#f8f9fa] px-5 pb-8 pt-24">
       <section className="mx-auto w-full max-w-[390px]">
         <h2
-          className="mb-5 w-fit rounded-full px-4 py-2 text-2xl font-bold leading-8 max-sm:text-lg max-sm:leading-7"
+          className="mx-auto mb-5 w-fit rounded-full px-4 py-2 text-2xl font-bold leading-8 max-sm:text-lg max-sm:leading-7"
           style={categoryTitleStyle}
         >
           # {categoryTitle}
         </h2>
+
+        {hasCategoryId && (
+          <label className="mb-5 flex w-fit cursor-pointer items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold leading-5 text-[#191c1d] shadow-[0_2px_8px_rgba(25,28,29,0.06)]">
+            <input
+              type="checkbox"
+              className="h-4 w-4 accent-[#b71422]"
+              checked={showOnlyCurrentCategory}
+              onChange={(event) =>
+                setShowOnlyCurrentCategory(event.target.checked)
+              }
+            />
+            <span>{categoryTitle}만 볼래요</span>
+          </label>
+        )}
 
         {hasCategoryId && isLoading && (
           <div className="rounded-[18px] bg-white p-6 text-center text-base text-[#5f5e5e]">
@@ -137,21 +172,21 @@ const CategoryPostListPage = () => {
           </div>
         )}
 
-        {hasCategoryId && !isLoading && !errorMessage && posts.length === 0 && (
+        {hasCategoryId && !isLoading && !errorMessage && (
+          visiblePosts.length === 0 ? (
           <p className="mt-20 text-center text-base leading-6 text-[#5f5e5e]">
-            해당 카테고리에 등록된 게시글이 없습니다.
+            {emptyMessage}
           </p>
-        )}
-
-        {hasCategoryId && !isLoading && !errorMessage && posts.length > 0 && (
-          <div className="grid grid-cols-1 gap-6">
-            {posts.map((post) => (
-              <CategoryPostCard
-                key={post.post_id ?? post.postId ?? post.id}
-                post={post}
-              />
-            ))}
-          </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-6">
+              {visiblePosts.map((post) => (
+                <CategoryPostCard
+                  key={post.post_id ?? post.postId ?? post.id}
+                  post={post}
+                />
+              ))}
+            </div>
+          )
         )}
       </section>
     </main>
