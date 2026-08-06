@@ -124,7 +124,7 @@ const CategoryPostListPage = () => {
   }, [categoryId, categoryNameFromState]);
 
   return (
-    <main className="min-h-screen bg-[#f8f9fa] px-5 pb-8 pt-24">
+    <main className="min-h-screen px-5 pb-8 pt-24">
       <section className="mx-auto w-full max-w-[390px]">
         {hasCategoryId && (
           <label className="mb-7 flex w-fit cursor-pointer items-center gap-3 text-sm font-semibold leading-5 text-[#191c1d]">

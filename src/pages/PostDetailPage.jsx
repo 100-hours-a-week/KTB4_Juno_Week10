@@ -205,7 +205,7 @@ const PostDetailPage = () => {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-[#f8f9fa] px-5 pb-10 pt-20">
+      <main className="min-h-screen px-5 pb-10 pt-20">
         <section className="mx-auto w-full max-w-[896px] rounded-xl bg-white p-6 text-center text-[#5f5e5e]">
           게시글을 불러오는 중입니다.
         </section>
@@ -215,7 +215,7 @@ const PostDetailPage = () => {
 
   if (!post) {
     return (
-      <main className="min-h-screen bg-[#f8f9fa] px-5 pb-10 pt-20">
+      <main className="min-h-screen px-5 pb-10 pt-20">
         <section className="mx-auto w-full max-w-[896px] rounded-xl border border-[#e4beba] bg-white p-6 text-center">
           <p className="font-semibold text-[#ba1a1a]">
             게시글을 불러오지 못했습니다.
@@ -233,7 +233,7 @@ const PostDetailPage = () => {
   const editPath = ROUTES.postEdit.replace(":postId", post.id);
 
   return (
-    <main className="min-h-screen bg-[#f8f9fa] px-5 pb-10 pt-20">
+    <main className="min-h-screen px-5 pb-10 pt-20">
       <section className="mx-auto w-full max-w-[896px]">
         {errorMessage && (
           <div className="mb-4 rounded-xl border border-[#e4beba] bg-white p-4 text-sm text-[#ba1a1a]">
