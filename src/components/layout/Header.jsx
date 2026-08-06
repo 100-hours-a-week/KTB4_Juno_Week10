@@ -5,8 +5,9 @@ import Icon from "@/components/common/Icon";
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const isCategoryDetailRoute =
-    location.pathname.startsWith(`${ROUTES.categories}/`);
+  const isCategoryDetailRoute = location.pathname.startsWith(
+    `${ROUTES.categories}/`,
+  );
   const hideBackButton = [
     ROUTES.posts,
     ROUTES.categories,
@@ -29,7 +30,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed left-1/2 top-0 z-[200] flex h-16 w-full max-w-[430px] -translate-x-1/2 items-center justify-between px-5">
+    <header className="absolute left-0 top-0 z-[300] flex h-16 w-full items-center justify-between px-5">
       <div className="flex min-w-0 flex-1 items-center gap-2">
         {!hideBackButton && (
           <button
@@ -40,9 +41,9 @@ const Header = () => {
           >
             <Icon
               className="text-[24px]"
-              style={{ color: "#9c2600", fontVariationSettings: '"wght" 700' }}
+              style={{ color: "#290a00", fontVariationSettings: '"wght" 700' }}
             >
-              arrow_back
+              keyboard_arrow_left
             </Icon>
           </button>
         )}
