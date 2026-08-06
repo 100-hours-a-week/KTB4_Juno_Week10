@@ -7,6 +7,8 @@ const Header = ({ variant = "board" }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const isProfile = variant === "profile";
+  const isCategoryDetailRoute =
+    location.pathname.startsWith(`${ROUTES.categories}/`);
   const headerTitle =
     {
       [ROUTES.posts]: "홈",
@@ -23,6 +25,11 @@ const Header = ({ variant = "board" }) => {
 
     if (location.pathname === ROUTES.posts) {
       navigate(-1);
+      return;
+    }
+
+    if (isCategoryDetailRoute) {
+      navigate(ROUTES.categories);
       return;
     }
 
