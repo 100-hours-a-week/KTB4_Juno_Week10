@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { getFullImageUrl } from "@/api";
+import { getCategoryStyle } from "@/constants/categoryStyles";
 
 const CategoryCard = ({ category, description, state, to }) => {
   return (
@@ -17,8 +18,11 @@ const CategoryCard = ({ category, description, state, to }) => {
       )}
 
       <div className="mt-3 flex items-start justify-between gap-2">
-        <h3 className="break-keep text-m font-bold leading-6 text-[#191c1d]">
-          {category.name}
+        <h3
+          className="break-keep rounded-full px-3 py-1 text-[11px] font-semibold leading-4"
+          style={getCategoryStyle(category.name)}
+        >
+          # {category.name}
         </h3>
         <span className="mt-0.5 inline-flex min-h-5 min-w-z shrink-0 items-center justify-center rounded-full bg-[#fff1f1] px-2 text-xs font-bold leading-4 text-[#ff2d2d]">
           {category.post_count}개
