@@ -115,12 +115,11 @@ const BookmarkedPostsPage = () => {
     <main className="min-h-screen bg-[#f8f9fa] px-5 pb-8 pt-20">
       <section className="mx-auto w-full max-w-[896px]">
         <div className="mb-6">
-          <h2 className="font-['Plus_Jakarta_Sans'] text-3xl font-bold leading-[38px] text-[#191c1d] max-sm:text-2xl max-sm:leading-8">
-            북마크
+          <h2 className="text-2xl font-bold leading-8 text-[#191c1d] max-sm:text-lg max-sm:leading-7">
+            총 {posts.length}개의 소스가
+            <br />
+            북마크되어 있어요!
           </h2>
-          <p className="mt-1 text-base leading-6 text-[#5f5e5e]">
-            저장해 둔 게시글을 모아볼 수 있습니다.
-          </p>
           <div className="mt-2 flex w-full justify-end">
             <div className="relative shrink-0">
               <button
