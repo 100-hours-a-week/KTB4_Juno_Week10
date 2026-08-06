@@ -1,9 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "@/constants/routes";
 import Icon from "@/components/common/Icon";
-import ProfileMenu from "@/components/layout/ProfileMenu";
 
-const Header = ({ variant = "board" }) => {
+const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isCategoryDetailRoute =
@@ -49,7 +48,7 @@ const Header = ({ variant = "board" }) => {
         )}
       </div>
 
-      <ProfileMenu variant={variant} />
+      <div aria-hidden="true" />
     </header>
   );
 };

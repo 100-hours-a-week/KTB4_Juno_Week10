@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { clearAuthSession, getAccessToken, userApi } from "@/api";
+import { authApi, clearAuthSession, getAccessToken, userApi } from "@/api";
 import ConfirmModal from "@/components/common/ConfirmModal";
 import Toast from "@/components/common/Toast";
 import { ROUTES } from "@/constants/routes";
@@ -8,6 +8,7 @@ import PasswordForm from "@/features/profile/PasswordForm";
 import ProfileForm from "@/features/profile/ProfileForm";
 import WithdrawSection from "@/features/profile/WithdrawSection";
 import { normalizeMyProfile } from "@/utils/normalizers";
+import Icon from "@/components/common/Icon";
 
 const ProfileEditPage = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const ProfileEditPage = () => {
   const [toastMessage, setToastMessage] = useState("");
   const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
   const [isWithdrawing, setIsWithdrawing] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const showToast = useCallback((message) => {
     setToastMessage(message);
@@ -74,6 +76,20 @@ const ProfileEditPage = () => {
     }
   };
 
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+
+    try {
+      await authApi.signout();
+    } catch {
+      // 서버 로그아웃 실패 시에도 로컬 세션은 정리합니다.
+    } finally {
+      clearAuthSession();
+      setIsLoggingOut(false);
+      navigate(ROUTES.login, { replace: true });
+    }
+  };
+
   return (
     <main className="min-h-[calc(100vh-7rem)] bg-[#f8f9fa] px-4 pb-4 pt-20">
       <section className="mx-auto w-full max-w-[392px]">
@@ -108,6 +124,22 @@ const ProfileEditPage = () => {
               onToast={showToast}
             />
             <PasswordForm onToast={showToast} />
+            <button
+              type="button"
+              className="mx-auto mt-5 flex h-10 w-fit min-w-[104px] items-center justify-center gap-1.5 rounded-full bg-[#b71422] px-5 text-xs font-bold leading-4 text-white transition hover:bg-[#930014] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-55"
+              disabled={isLoggingOut}
+              onClick={handleLogout}
+            >
+              <Icon className="text-[18px] text-white [color:#ffffff]">
+                logout
+              </Icon>
+              <span
+                className="text-white [color:#ffffff]"
+                style={{ fontSize: "12px", fontWeight: 800 }}
+              >
+                {isLoggingOut ? "로그아웃 중..." : "로그아웃"}
+              </span>
+            </button>
             <WithdrawSection onWithdraw={() => setIsWithdrawModalOpen(true)} />
           </>
         )}
