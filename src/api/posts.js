@@ -1,6 +1,7 @@
 import { request } from "@/api/client";
 
 export const getPosts = ({
+  categoryIds = [],
   keyword = "",
   sort = "latest",
   page = 0,
@@ -10,6 +11,10 @@ export const getPosts = ({
 
   if (keyword.trim()) {
     params.set("keyword", keyword.trim());
+  }
+
+  if (categoryIds.length > 0) {
+    params.set("categoryIds", categoryIds.join(","));
   }
 
   params.set("sort", sort);

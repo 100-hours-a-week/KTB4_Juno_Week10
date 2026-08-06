@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { categoryApi } from "@/api";
+import { ROUTES } from "@/constants/routes";
 import CategoryCard from "@/features/categories/CategoryCard";
 import FeaturedPostSlider from "@/features/categories/FeaturedPostSlider";
 
@@ -78,6 +79,10 @@ const CategoryPage = () => {
                 key={category.category_id}
                 category={category}
                 description={CATEGORY_DESCRIPTIONS[category.name]}
+                to={ROUTES.categoryPosts.replace(
+                  ":categoryId",
+                  category.category_id,
+                )}
               />
             ))}
           </div>
