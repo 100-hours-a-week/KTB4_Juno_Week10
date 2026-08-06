@@ -112,7 +112,7 @@ const BookmarkedPostsPage = () => {
   };
 
   return (
-    <main className="min-h-screen bg-[#f8f9fa] px-5 pb-8 pt-20">
+    <main className="min-h-screen bg-[#f8f9fa] px-5 pb-8 pt-10">
       <section className="mx-auto w-full max-w-[896px]">
         <div className="mb-6">
           <h2 className="text-2xl font-bold leading-8 text-[#191c1d] max-sm:text-lg max-sm:leading-7">

@@ -51,7 +51,7 @@ const CategoryPage = () => {
   }, []);
 
   return (
-    <main className="-mb-28 min-h-screen bg-[#fff4f4] px-5 pb-36 pt-20">
+    <main className="-mb-28 min-h-screen bg-[#fff4f4] px-5 pb-36 pt-10">
       <section className="mx-auto w-full max-w-[390px]">
         <h2 className="mb-4 text-2xl font-bold leading-8 text-[#191c1d] max-sm:text-lg max-sm:leading-7">
           취향에 따라
