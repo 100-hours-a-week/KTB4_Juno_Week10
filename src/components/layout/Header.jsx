@@ -15,7 +15,10 @@ const Header = ({ variant = "board" }) => {
     ? location.pathname.replace(`${ROUTES.categories}/`, "")
     : "";
   const categoryNameFromState = location.state?.categoryName;
-  const [categoryTitle, setCategoryTitle] = useState("");
+  const [fetchedCategoryTitle, setFetchedCategoryTitle] = useState({
+    categoryId: "",
+    title: "",
+  });
   const defaultHeaderTitle =
     {
       [ROUTES.posts]: "홈",
@@ -23,16 +26,18 @@ const Header = ({ variant = "board" }) => {
       [ROUTES.bookmarks]: "북마크",
       [ROUTES.profileEdit]: "마이페이지",
     }[location.pathname] ?? "마라보자";
-  const headerTitle = categoryTitle || defaultHeaderTitle;
+  const categoryDetailTitle =
+    categoryNameFromState ||
+    (fetchedCategoryTitle.categoryId === categoryId
+      ? fetchedCategoryTitle.title
+      : "") ||
+    "카테고리";
+  const headerTitle = isCategoryDetailRoute
+    ? categoryDetailTitle
+    : defaultHeaderTitle;
 
   useEffect(() => {
-    if (!isCategoryDetailRoute) {
-      setCategoryTitle("");
-      return;
-    }
-
-    if (categoryNameFromState) {
-      setCategoryTitle(categoryNameFromState);
+    if (!isCategoryDetailRoute || categoryNameFromState) {
       return;
     }
 
@@ -46,11 +51,17 @@ const Header = ({ variant = "board" }) => {
         );
 
         if (!ignore) {
-          setCategoryTitle(category?.name ?? "카테고리");
+          setFetchedCategoryTitle({
+            categoryId,
+            title: category?.name ?? "카테고리",
+          });
         }
       } catch {
         if (!ignore) {
-          setCategoryTitle("카테고리");
+          setFetchedCategoryTitle({
+            categoryId,
+            title: "카테고리",
+          });
         }
       }
     };
