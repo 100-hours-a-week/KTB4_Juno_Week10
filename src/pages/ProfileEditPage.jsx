@@ -79,11 +79,13 @@ const ProfileEditPage = () => {
       <section className="mx-auto w-full max-w-[392px]">
         <div className="mb-6">
           <h2 className="font-['Plus_Jakarta_Sans'] text-2xl font-bold leading-8 text-[#191c1d]">
-            회원정보 수정
+            프로필 정보를
+            <br />
+            수정할 수 있어요
           </h2>
-          <p className="mt-1 text-base leading-6 text-[#5f5e5e]">
+          {/* <p className="mt-1 text-base leading-6 text-[#5f5e5e]">
             프로필 정보와 비밀번호를 변경할 수 있습니다.
-          </p>
+          </p> */}
         </div>
 
         {isLoading && (

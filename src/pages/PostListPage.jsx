@@ -137,7 +137,7 @@ const PostListPage = () => {
             <h2 className="text-2xl font-bold leading-8 text-[#191c1d] max-sm:text-lg max-sm:leading-7">
               마라보자에는
               <br />
-              {pageInfo.totalElements}개의 소스가 등록되어 있어요!
+              {pageInfo.totalElements}개의 글이 등록되어 있어요
             </h2>
           </div>
 
@@ -145,7 +145,7 @@ const PostListPage = () => {
             <SearchInput
               id="post-search"
               value={searchInput}
-              placeholder="원하는 소스를 검색해보세요"
+              placeholder="원하는 가게와 소스를 검색할 수 있어요"
               disabled={isLoading}
               showReset={Boolean(searchInput || hasSubmittedSearch)}
               onChange={setSearchInput}
