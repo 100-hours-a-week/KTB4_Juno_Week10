@@ -7,6 +7,13 @@ const Header = ({ variant = "board" }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const isProfile = variant === "profile";
+  const headerTitle =
+    {
+      [ROUTES.posts]: "홈",
+      [ROUTES.categories]: "카테고리",
+      [ROUTES.bookmarks]: "북마크",
+      [ROUTES.profileEdit]: "마이페이지",
+    }[location.pathname] ?? "마라보자";
 
   const handleBack = () => {
     if (isProfile) {
@@ -56,7 +63,7 @@ const Header = ({ variant = "board" }) => {
       </div>
 
       <h1 className="pointer-events-none absolute left-1/2 max-w-[calc(100%-144px)] -translate-x-1/2 truncate text-center font-['Plus_Jakarta_Sans'] text-xl font-bold leading-7 text-[#b71422]">
-        Community
+        {headerTitle}
       </h1>
 
       <ProfileMenu variant={variant} />
