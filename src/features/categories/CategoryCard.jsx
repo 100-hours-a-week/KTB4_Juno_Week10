@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { getFullImageUrl } from "@/api";
 
-const CategoryCard = ({ category, description, to }) => {
+const CategoryCard = ({ category, description, state, to }) => {
   return (
     <Link
       to={to}
+      state={state}
       className="min-w-0 rounded-[28px] bg-white p-4 text-left shadow-[0_2px_6px_rgba(44,23,23,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_6px_16px_rgba(44,23,23,0.1)] active:scale-[0.98]"
     >
       {category.image && (

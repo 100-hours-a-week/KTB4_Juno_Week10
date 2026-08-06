@@ -79,6 +79,7 @@ const CategoryPage = () => {
                 key={category.category_id}
                 category={category}
                 description={CATEGORY_DESCRIPTIONS[category.name]}
+                state={{ categoryName: category.name }}
                 to={ROUTES.categoryPosts.replace(
                   ":categoryId",
                   category.category_id,
