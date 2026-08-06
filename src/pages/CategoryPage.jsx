@@ -50,11 +50,11 @@ const CategoryPage = () => {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#fff4f4] px-5 pb-8 pt-24">
+    <main className="-mb-28 min-h-screen bg-[#fff4f4] px-5 pb-36 pt-24">
       <section className="mx-auto w-full max-w-[390px]">
         <FeaturedPostSlider />
 
-        <h2 className="mb-4 text-[28px] font-normal leading-9 text-[#191c1d]">
+        <h2 className="mb-4 text-[28px] font-bold leading-9 text-[#191c1d]">
           취향별 카테고리
         </h2>
 

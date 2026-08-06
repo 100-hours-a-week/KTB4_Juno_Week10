@@ -15,9 +15,12 @@ const CategoryCard = ({ category, description }) => {
       )}
 
       <div className="mt-3 flex items-start justify-between gap-2">
-        <h3 className="break-keep text-lg font-bold leading-6 text-[#191c1d]">
+        <h3 className="break-keep text-m font-bold leading-6 text-[#191c1d]">
           {category.name}
         </h3>
+        <span className="mt-0.5 inline-flex min-h-5 min-w-z shrink-0 items-center justify-center rounded-full bg-[#fff1f1] px-2 text-xs font-bold leading-4 text-[#ff2d2d]">
+          {category.post_count}개
+        </span>
       </div>
 
       <p className="mt-1 min-h-9 break-keep text-sm leading-5 text-[#7d858e]">
