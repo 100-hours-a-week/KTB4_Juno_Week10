@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { categoryApi, postApi } from "@/api";
+import { getCategoryStyle } from "@/constants/categoryStyles";
 import CategoryPostCard from "@/features/categories/CategoryPostCard";
 import { getPostsFromResponse } from "@/utils/normalizers";
 
@@ -19,6 +20,7 @@ const CategoryPostListPage = () => {
     categoryNameFromState ||
     fetchedCategoryTitle ||
     "취향의 소스들을 한 곳에서 모아봐요!";
+  const categoryTitleStyle = getCategoryStyle(categoryTitle);
   const currentErrorMessage = hasCategoryId
     ? errorMessage
     : "카테고리 정보를 찾을 수 없습니다.";
@@ -104,7 +106,10 @@ const CategoryPostListPage = () => {
   return (
     <main className="min-h-screen bg-[#f8f9fa] px-5 pb-8 pt-24">
       <section className="mx-auto w-full max-w-[390px]">
-        <h2 className="mb-5 text-2xl font-bold leading-8 text-[#191c1d] max-sm:text-lg max-sm:leading-7">
+        <h2
+          className="mb-5 w-fit rounded-full px-4 py-2 text-2xl font-bold leading-8 max-sm:text-lg max-sm:leading-7"
+          style={categoryTitleStyle}
+        >
           # {categoryTitle}
         </h2>
 
