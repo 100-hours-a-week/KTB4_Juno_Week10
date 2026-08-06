@@ -116,7 +116,7 @@ const BookmarkedPostsPage = () => {
       <section className="mx-auto w-full max-w-[896px]">
         <div className="mb-6">
           <h2 className="text-2xl font-bold leading-8 text-[#191c1d] max-sm:text-lg max-sm:leading-7">
-            {posts.length}개의 소스가
+            <span className="text-[#c92525]">{posts.length}</span>개의 소스가
             <br />
             북마크되어 있어요
           </h2>
