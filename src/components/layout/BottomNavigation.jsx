@@ -16,8 +16,8 @@ const navigationItems = [
     matches: (pathname) => pathname.startsWith("/posts"),
   },
   {
-    label: "카테고리",
-    icon: "category",
+    label: "소스 모아보기",
+    icon: "chili",
     to: ROUTES.categories,
     matches: (pathname) => pathname.startsWith("/categories"),
   },
@@ -43,6 +43,36 @@ const navIconClass =
 
 const navLabelClass =
   "mt-0.5 block h-4 whitespace-nowrap text-center text-[12px] font-semibold leading-4";
+
+const ChiliIcon = ({ filled = false, className = "", style }) => (
+  <svg
+    className={className}
+    style={style}
+    viewBox="0 0 24 24"
+    fill={filled ? "currentColor" : "none"}
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth="1.9"
+    aria-hidden="true"
+  >
+    <path d="M16.7 4.2c0.2 1.6-0.4 2.9-1.9 4" />
+    <path d="M16.5 4.1c1.7 0.1 3 0.9 4 2.2" />
+    <path d="M16.7 7.5c2.3 2.4 1.6 6.7-1.5 9.4-3.1 2.7-7.1 3.2-9.8 1 2.7-0.1 4.7-1.1 6.2-2.9 1.6-1.9 2-4.3 1.1-6.6 1.4-0.8 2.7-1.1 4-0.9Z" />
+  </svg>
+);
+
+const NavigationIcon = ({ icon, filled, className, style }) => {
+  if (icon === "chili") {
+    return <ChiliIcon filled={filled} className={className} style={style} />;
+  }
+
+  return (
+    <Icon className={className} filled={filled} style={style}>
+      {icon}
+    </Icon>
+  );
+};
 
 const BottomNavigation = () => {
   const activeColor = "#b71422";
@@ -71,7 +101,7 @@ const BottomNavigation = () => {
               aria-label={item.label}
               disabled
             >
-              <Icon className={navIconClass}>{item.icon}</Icon>
+              <NavigationIcon className={navIconClass} icon={item.icon} />
               <span className={navLabelClass}>{item.label}</span>
             </button>
           );
@@ -91,15 +121,14 @@ const BottomNavigation = () => {
             {({ isActive }) => (
               <>
                 <span className="relative flex h-6 w-6 items-center justify-center">
-                  <Icon
+                  <NavigationIcon
+                    icon={item.icon}
                     className={`${navIconClass} ${
                       isActive ? "" : "group-hover:text-[#b71422]"
                     }`}
                     filled={isActive}
                     style={isActive ? { color: activeColor } : undefined}
-                  >
-                    {item.icon}
-                  </Icon>
+                  />
                   {item.to === ROUTES.bookmarks &&
                     hasUnreadBookmark &&
                     !isActive && (

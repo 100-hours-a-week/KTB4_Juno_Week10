@@ -15,15 +15,15 @@ const CategorySelector = ({
   return (
     <div className="w-full">
       <h3 className="mb-4 text-xl font-normal leading-7 text-[#191c1d]">
-        카테고리 선택
+        소스 카테고리 선택
       </h3>
       <p className="mb-5 text-sm leading-5 text-[#7b7c7f]">
-        카테고리는 최대 {maxSelection}개까지 선택 가능합니다.
+        소스 카테고리는 최대 {maxSelection}개까지 선택 가능합니다.
       </p>
 
       {isLoading && (
         <p className="text-sm leading-5 text-[#5f5e5e]">
-          카테고리를 불러오는 중입니다.
+          소스 카테고리를 불러오는 중입니다.
         </p>
       )}
 
@@ -40,7 +40,9 @@ const CategorySelector = ({
             const categoryId = getCategoryId(category);
             const isSelected = selectedCategoryIds.includes(categoryId);
             const isOptionDisabled =
-              disabled || !categoryId || (hasReachedMaxSelection && !isSelected);
+              disabled ||
+              !categoryId ||
+              (hasReachedMaxSelection && !isSelected);
 
             return (
               <button
