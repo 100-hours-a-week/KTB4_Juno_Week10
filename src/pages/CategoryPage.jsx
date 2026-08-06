@@ -56,7 +56,7 @@ const CategoryPage = () => {
         <h2 className="mb-4 text-2xl font-bold leading-8 text-[#191c1d] max-sm:text-lg max-sm:leading-7">
           취향에 따라
           <br />
-          소스를 찾아보세요
+          소스를 찾을 수 있어요
         </h2>
         <FeaturedPostSlider />
 

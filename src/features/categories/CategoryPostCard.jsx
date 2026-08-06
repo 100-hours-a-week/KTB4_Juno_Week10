@@ -80,14 +80,12 @@ const CategoryPostCard = ({ post }) => {
           />
           <button
             type="button"
-            className={`absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-[0_2px_8px_rgba(0,0,0,0.08)] transition active:scale-95 disabled:cursor-wait ${
-              isBookmarked ? "text-[#9c2600]" : "text-[#5f5e5e]"
-            }`}
+            className="absolute right-3 top-3 flex h-12 w-12 items-center justify-center bg-transparent text-[#c92525] transition active:scale-95 disabled:cursor-wait"
             aria-label="게시글 북마크"
             disabled={isBookmarkProcessing}
             onClick={handleBookmarkClick}
           >
-            <Icon className="text-[25px]" filled={isBookmarked}>
+            <Icon style={{ fontSize: "25px" }} filled={isBookmarked}>
               bookmark
             </Icon>
           </button>
