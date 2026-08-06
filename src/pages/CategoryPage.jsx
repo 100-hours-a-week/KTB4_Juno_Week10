@@ -55,20 +55,18 @@ const CategoryPage = () => {
         <FeaturedPostSlider />
 
         <h2 className="mb-4 text-[28px] font-bold leading-9 text-[#191c1d]">
-          취향별 카테고리
+          취향별 소스 모음
         </h2>
 
         {isLoading && (
           <div className="rounded-[28px] bg-white p-6 text-center text-base text-[#5f5e5e] shadow-[0_2px_6px_rgba(44,23,23,0.06)]">
-            카테고리를 불러오는 중입니다.
+            취향별 소스 모음을 불러오는 중입니다.
           </div>
         )}
 
         {!isLoading && errorMessage && (
           <div className="rounded-[28px] border border-[#e4beba] bg-white p-6 text-center">
-            <p className="text-base font-semibold text-[#ba1a1a]">
-              카테고리를 불러오지 못했습니다.
-            </p>
+            <p className="text-base font-semibold text-[#ba1a1a]"></p>
             <p className="mt-2 text-sm text-[#5f5e5e]">{errorMessage}</p>
           </div>
         )}
