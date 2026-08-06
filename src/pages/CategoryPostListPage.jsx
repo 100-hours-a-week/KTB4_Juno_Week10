@@ -24,7 +24,6 @@ const CategoryPostListPage = () => {
     categoryNameFromState ||
     fetchedCategoryTitle ||
     "취향의 소스들을 한 곳에서 모아봐요!";
-  const categoryTitleStyle = getCategoryStyle(categoryTitle);
   const currentErrorMessage = hasCategoryId
     ? errorMessage
     : "카테고리 정보를 찾을 수 없습니다.";
@@ -127,24 +126,26 @@ const CategoryPostListPage = () => {
   return (
     <main className="min-h-screen bg-[#f8f9fa] px-5 pb-8 pt-24">
       <section className="mx-auto w-full max-w-[390px]">
-        <h2
-          className="mx-auto mb-5 w-fit rounded-full px-4 py-2 text-2xl font-bold leading-8 max-sm:text-lg max-sm:leading-7"
-          style={categoryTitleStyle}
-        >
-          # {categoryTitle}
-        </h2>
-
         {hasCategoryId && (
-          <label className="mb-5 flex w-fit cursor-pointer items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold leading-5 text-[#191c1d] shadow-[0_2px_8px_rgba(25,28,29,0.06)]">
+          <label className="mb-7 flex w-fit cursor-pointer items-center gap-3 text-sm font-semibold leading-5 text-[#191c1d]">
             <input
               type="checkbox"
-              className="h-4 w-4 accent-[#b71422]"
+              className="peer sr-only"
               checked={showOnlyCurrentCategory}
               onChange={(event) =>
                 setShowOnlyCurrentCategory(event.target.checked)
               }
             />
-            <span>{categoryTitle}만 볼래요</span>
+            <span className="relative h-6 w-11 rounded-full bg-[#dadde0] transition peer-checked:bg-[#b71422] after:absolute after:left-0.5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:transition after:content-[''] peer-checked:after:translate-x-5" />
+            <span>
+              <span
+                className="rounded-full px-2 py-1 text-[11px] font-semibold leading-4"
+                style={getCategoryStyle(categoryTitle)}
+              >
+                # {categoryTitle}
+              </span>
+              만 볼래요
+            </span>
           </label>
         )}
 
@@ -172,11 +173,13 @@ const CategoryPostListPage = () => {
           </div>
         )}
 
-        {hasCategoryId && !isLoading && !errorMessage && (
-          visiblePosts.length === 0 ? (
-          <p className="mt-20 text-center text-base leading-6 text-[#5f5e5e]">
-            {emptyMessage}
-          </p>
+        {hasCategoryId &&
+          !isLoading &&
+          !errorMessage &&
+          (visiblePosts.length === 0 ? (
+            <p className="mt-20 text-center text-base leading-6 text-[#5f5e5e]">
+              {emptyMessage}
+            </p>
           ) : (
             <div className="grid grid-cols-1 gap-6">
               {visiblePosts.map((post) => (
@@ -186,8 +189,7 @@ const CategoryPostListPage = () => {
                 />
               ))}
             </div>
-          )
-        )}
+          ))}
       </section>
     </main>
   );

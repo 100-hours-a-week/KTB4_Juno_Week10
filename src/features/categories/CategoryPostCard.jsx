@@ -96,7 +96,7 @@ const CategoryPostCard = ({ post }) => {
         <div className="p-4">
           {normalizedPost.categories.length > 0 && (
             <div className="mb-2 flex flex-wrap gap-2">
-              {normalizedPost.categories.slice(0, 2).map((category) => (
+              {normalizedPost.categories.map((category) => (
                 <span
                   key={category.id}
                   className="rounded-full px-3 py-1 text-[11px] font-semibold leading-4"
