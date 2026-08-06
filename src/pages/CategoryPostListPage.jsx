@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { postApi } from "@/api";
+import { useLocation, useParams } from "react-router-dom";
+import { categoryApi, postApi } from "@/api";
 import CategoryPostCard from "@/features/categories/CategoryPostCard";
 import { getPostsFromResponse } from "@/utils/normalizers";
 
@@ -8,10 +8,17 @@ const POST_PAGE_SIZE = 10;
 
 const CategoryPostListPage = () => {
   const { categoryId } = useParams();
+  const location = useLocation();
+  const categoryNameFromState = location.state?.categoryName;
   const [posts, setPosts] = useState([]);
+  const [fetchedCategoryTitle, setFetchedCategoryTitle] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const hasCategoryId = Boolean(categoryId);
+  const categoryTitle =
+    categoryNameFromState ||
+    fetchedCategoryTitle ||
+    "취향의 소스들을 한 곳에서 모아봐요!";
   const currentErrorMessage = hasCategoryId
     ? errorMessage
     : "카테고리 정보를 찾을 수 없습니다.";
@@ -57,9 +64,50 @@ const CategoryPostListPage = () => {
     };
   }, [categoryId]);
 
+  useEffect(() => {
+    if (!categoryId) {
+      return;
+    }
+
+    if (categoryNameFromState) {
+      return;
+    }
+
+    let ignore = false;
+
+    const loadCategoryTitle = async () => {
+      try {
+        const response = await categoryApi.getCategories();
+        const category = (response.data.categories ?? []).find(
+          (item) => String(item.category_id) === String(categoryId),
+        );
+
+        if (!ignore) {
+          setFetchedCategoryTitle(
+            category?.name ?? "취향의 소스들을 한 곳에서 모아봐요!",
+          );
+        }
+      } catch {
+        if (!ignore) {
+          setFetchedCategoryTitle("취향의 소스들을 한 곳에서 모아봐요!");
+        }
+      }
+    };
+
+    void loadCategoryTitle();
+
+    return () => {
+      ignore = true;
+    };
+  }, [categoryId, categoryNameFromState]);
+
   return (
     <main className="min-h-screen bg-[#f8f9fa] px-5 pb-8 pt-24">
       <section className="mx-auto w-full max-w-[390px]">
+        <h2 className="mb-5 text-2xl font-bold leading-8 text-[#191c1d] max-sm:text-lg max-sm:leading-7">
+          # {categoryTitle}
+        </h2>
+
         {hasCategoryId && isLoading && (
           <div className="rounded-[18px] bg-white p-6 text-center text-base text-[#5f5e5e]">
             게시글을 불러오는 중입니다.
@@ -71,9 +119,7 @@ const CategoryPostListPage = () => {
             <p className="text-base font-semibold text-[#ba1a1a]">
               게시글을 불러오지 못했습니다.
             </p>
-            <p className="mt-2 text-sm text-[#5f5e5e]">
-              {currentErrorMessage}
-            </p>
+            <p className="mt-2 text-sm text-[#5f5e5e]">{currentErrorMessage}</p>
           </div>
         )}
 
@@ -82,9 +128,7 @@ const CategoryPostListPage = () => {
             <p className="text-base font-semibold text-[#ba1a1a]">
               게시글을 불러오지 못했습니다.
             </p>
-            <p className="mt-2 text-sm text-[#5f5e5e]">
-              {currentErrorMessage}
-            </p>
+            <p className="mt-2 text-sm text-[#5f5e5e]">{currentErrorMessage}</p>
           </div>
         )}
 
