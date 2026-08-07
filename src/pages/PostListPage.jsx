@@ -62,12 +62,8 @@ const PostListPage = () => {
         if (!ignore) {
           const responseData = response.data;
           const responsePosts = getPostsFromResponse(response);
-          const totalPages = pickField(responseData, "totalPages", "total_pages");
-          const totalElements = pickField(
-            responseData,
-            "totalElements",
-            "total_elements",
-          );
+          const totalPages = responseData.total_pages;
+          const totalElements = responseData.total_elements;
 
           setPosts(responsePosts);
           setPageInfo({
@@ -135,40 +131,30 @@ const PostListPage = () => {
 
   return (
     <>
-      <main className="min-h-screen bg-[#f8f9fa] px-5 pb-8 pt-24">
+      <main className="min-h-screen px-5 pb-8 pt-10">
         <section className="mx-auto w-full max-w-[896px]">
-          <div className="mb-6">
-            <h2 className="font-['Plus_Jakarta_Sans'] text-3xl font-bold leading-[38px] text-[#191c1d] max-sm:text-2xl max-sm:leading-8">
-              Community Board
+          <div className="mb-3">
+            <h2 className="text-2xl font-bold leading-8 text-[#191c1d] max-sm:text-lg max-sm:leading-7">
+              마라보자에는
+              <br />
+              <span className="text-[#c92525]">
+                {pageInfo.totalElements}
+              </span>
+              개의 글이 등록되어 있어요
             </h2>
-            <p className="mt-1 text-base leading-6 text-[#5f5e5e]">
-              다른 사용자들과 자유롭게 이야기를 나눠보세요.
-            </p>
           </div>
 
           <div className="mb-4">
             <SearchInput
               id="post-search"
               value={searchInput}
-              placeholder="제목 또는 본문 검색"
+              placeholder="원하는 가게와 소스를 검색할 수 있어요"
               disabled={isLoading}
               showReset={Boolean(searchInput || hasSubmittedSearch)}
               onChange={setSearchInput}
               onSubmit={handleSearchSubmit}
               onReset={handleSearchReset}
             />
-          </div>
-
-          <div className="mb-2 flex w-full gap-3 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <button
-              type="button"
-              className="shrink-0 rounded-full bg-[#9c2600] px-4 py-1 text-[12px] font-bold leading-4 text-white"
-              disabled
-            >
-              <span style={{ fontSize: "12px", fontWeight: 800 }}>
-                전체 게시글
-              </span>
-            </button>
           </div>
 
           <div className="mb-4 flex w-full justify-end">

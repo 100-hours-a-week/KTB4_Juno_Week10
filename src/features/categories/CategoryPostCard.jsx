@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { getFullImageUrl, postApi } from "@/api";
 import defaultImage from "@/assets/default.png";
 import Icon from "@/components/common/Icon";
+import { getCategoryStyle } from "@/constants/categoryStyles";
 import { ROUTES } from "@/constants/routes";
 import { formatCount } from "@/utils/format";
 import { markBookmarkRead, markBookmarkUnread } from "@/utils/bookmarkEvents";
@@ -79,14 +80,12 @@ const CategoryPostCard = ({ post }) => {
           />
           <button
             type="button"
-            className={`absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-[0_2px_8px_rgba(0,0,0,0.08)] transition active:scale-95 disabled:cursor-wait ${
-              isBookmarked ? "text-[#9c2600]" : "text-[#5f5e5e]"
-            }`}
+            className="absolute right-3 top-3 flex h-12 w-12 items-center justify-center bg-transparent text-[#c92525] transition active:scale-95 disabled:cursor-wait"
             aria-label="게시글 북마크"
             disabled={isBookmarkProcessing}
             onClick={handleBookmarkClick}
           >
-            <Icon className="text-[25px]" filled={isBookmarked}>
+            <Icon style={{ fontSize: "25px" }} filled={isBookmarked}>
               bookmark
             </Icon>
           </button>
@@ -95,10 +94,11 @@ const CategoryPostCard = ({ post }) => {
         <div className="p-4">
           {normalizedPost.categories.length > 0 && (
             <div className="mb-2 flex flex-wrap gap-2">
-              {normalizedPost.categories.slice(0, 2).map((category) => (
+              {normalizedPost.categories.map((category) => (
                 <span
                   key={category.id}
-                  className="rounded-full bg-[#fff1ed] px-3 py-1 text-[11px] font-semibold leading-4 text-[#d72020]"
+                  className="rounded-full px-3 py-1 text-[11px] font-semibold leading-4"
+                  style={getCategoryStyle(category.name)}
                 >
                   #{category.name}
                 </span>

@@ -218,6 +218,7 @@ const SignupForm = () => {
       <AuthField
         id="signupEmail"
         label="이메일"
+        labelGapClassName="mb-1"
         icon="mail"
         type="email"
         autoComplete="email"
@@ -231,6 +232,7 @@ const SignupForm = () => {
       <AuthField
         id="signupNickname"
         label="닉네임"
+        labelGapClassName="mb-1"
         icon="badge"
         autoComplete="nickname"
         placeholder="닉네임을 입력하세요"
@@ -243,6 +245,7 @@ const SignupForm = () => {
       <AuthField
         id="signupPassword"
         label="비밀번호"
+        labelGapClassName="mb-1"
         icon="lock"
         type="password"
         autoComplete="new-password"
@@ -258,6 +261,7 @@ const SignupForm = () => {
       <AuthField
         id="signupPasswordConfirm"
         label="비밀번호 확인"
+        labelGapClassName="mb-1"
         icon="check_circle"
         type="password"
         autoComplete="new-password"

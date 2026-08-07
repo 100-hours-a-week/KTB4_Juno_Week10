@@ -59,7 +59,7 @@ const PostEditPage = () => {
   };
 
   return (
-    <main className="min-h-screen bg-[#f8f9fa] px-5 pb-4 pt-[88px]">
+    <main className="min-h-screen px-5 pb-4 pt-[88px]">
       <section className="mx-auto w-full max-w-[672px]">
         <div className="mb-6">
           <h2 className="font-['Plus_Jakarta_Sans'] text-3xl font-bold leading-[38px] text-[#191c1d]">

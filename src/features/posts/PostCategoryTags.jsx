@@ -1,3 +1,5 @@
+import { getCategoryStyle } from "@/constants/categoryStyles";
+
 const PostCategoryTags = ({ categories = [], className = "" }) => {
   if (!categories.length) {
     return null;
@@ -8,7 +10,8 @@ const PostCategoryTags = ({ categories = [], className = "" }) => {
       {categories.map((category) => (
         <span
           key={category.id}
-          className="rounded-full bg-[#fff1ed] px-2.5 py-1 text-xs font-semibold leading-4 text-[#9c2600]"
+          className="rounded-full px-2.5 py-1 text-xs font-semibold leading-4"
+          style={getCategoryStyle(category.name)}
         >
           # {category.name}
         </span>

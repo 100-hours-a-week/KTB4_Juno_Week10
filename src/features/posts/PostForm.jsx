@@ -166,7 +166,7 @@ const PostForm = ({
       >
         <div className="w-full">
           <label
-            className="mb-2 ml-1 block text-sm font-semibold leading-5 tracking-[0.05em] text-[#5b403e]"
+            className="mb-2 ml-1 block text-base font-semibold leading-6 tracking-[0.05em] text-[#191c1d]"
             htmlFor="postTitle"
           >
             제목<span className="ml-0.5 text-[#9c2600]">*</span>
@@ -174,15 +174,15 @@ const PostForm = ({
           <input
             id="postTitle"
             className="h-[52px] w-full rounded-xl border-[1.5px] border-[#e0e0e0] bg-white px-4 py-3 text-base leading-6 text-[#191c1d] placeholder:text-[#838486] transition focus:border-[#9c2600] focus:shadow-[0_0_0_1px_#9c2600]"
-            placeholder="제목을 입력하세요. (최대 26자)"
+            placeholder="제목을 입력하세요 (예: 궁극의 마라맛 훠궈 소스)"
             value={title}
             onChange={handleTitleChange}
           />
         </div>
 
         <div className="w-full">
-          <span className="mb-2 ml-1 block text-sm font-semibold leading-5 tracking-[0.05em] text-[#5b403e]">
-            이미지
+          <span className="mb-2 ml-1 block text-base font-semibold leading-6 tracking-[0.05em] text-[#191c1d]">
+            대표 이미지
           </span>
           <ImageDropzone
             currentImageUrl={currentImage}
@@ -196,15 +196,15 @@ const PostForm = ({
 
         <div className="w-full">
           <label
-            className="mb-2 ml-1 block text-sm font-semibold leading-5 tracking-[0.05em] text-[#5b403e]"
+            className="mb-2 ml-1 block text-base font-semibold leading-6 tracking-[0.05em] text-[#191c1d]"
             htmlFor="postContent"
           >
             내용<span className="ml-0.5 text-[#9c2600]">*</span>
           </label>
           <textarea
             id="postContent"
-            className="h-[420px] w-full resize-none rounded-xl border-[1.5px] border-[#e0e0e0] bg-white px-4 py-3.5 text-base leading-6 text-[#191c1d] placeholder:text-[#838486] transition focus:border-[#9c2600] focus:shadow-[0_0_0_1px_#9c2600]"
-            placeholder="내용을 입력하세요."
+            className="h-[220px] w-full resize-none rounded-xl border-[1.5px] border-[#e0e0e0] bg-white px-4 py-3.5 text-base leading-6 text-[#191c1d] placeholder:text-[#838486] transition focus:border-[#9c2600] focus:shadow-[0_0_0_1px_#9c2600]"
+            placeholder="나만의 특별한 레시피나 팁을 공유해주세요!"
             value={content}
             onChange={(event) => {
               setContent(event.target.value);

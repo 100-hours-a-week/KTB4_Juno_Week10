@@ -15,7 +15,10 @@ const ImageDropzone = ({
   const [isDragOver, setIsDragOver] = useState(false);
   const selectedPreviewUrl = useImagePreview(file);
   const previewUrl =
-    selectedPreviewUrl || (!isImageRemoved && currentImageUrl ? getFullImageUrl(currentImageUrl) : "");
+    selectedPreviewUrl ||
+    (!isImageRemoved && currentImageUrl
+      ? getFullImageUrl(currentImageUrl)
+      : "");
   const fileName = file
     ? file.name
     : previewUrl
@@ -57,8 +60,10 @@ const ImageDropzone = ({
   return (
     <div>
       <div
-        className={`relative flex h-[272px] w-full cursor-pointer items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed bg-white transition ${
-          isDragOver ? "border-[#9c2600] bg-[#f3f4f5]" : "border-[#e0e0e0] hover:border-[#9c2600] hover:bg-[#f3f4f5]"
+        className={`relative flex h-[210px] w-full cursor-pointer items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed bg-white transition ${
+          isDragOver
+            ? "border-[#9c2600] bg-[#f3f4f5]"
+            : "border-[#e0e0e0] hover:border-[#9c2600] hover:bg-[#f3f4f5]"
         }`}
         role="button"
         tabIndex={0}
@@ -112,17 +117,17 @@ const ImageDropzone = ({
               src={previewUrl}
               alt="선택한 게시글 이미지"
             />
-            <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition hover:opacity-100">
+            <div className="absolute inset-0 bg-black/40 opacity-0 transition hover:opacity-100">
               <button
                 type="button"
-                className="flex min-h-10 items-center gap-1.5 rounded-full bg-white px-4 text-sm font-semibold text-[#9c2600]"
+                className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#9c2600] transition active:scale-95"
+                aria-label="이미지 삭제"
                 onClick={(event) => {
                   event.stopPropagation();
                   handleRemove();
                 }}
               >
-                <Icon className="text-[19px]">delete</Icon>
-                이미지 삭제
+                <Icon className="text-[22px]">close</Icon>
               </button>
             </div>
           </div>

@@ -6,6 +6,7 @@ const AuthField = ({
   icon,
   id,
   label,
+  labelGapClassName = "mb-2",
   onBlur,
   onChange,
   onToggleVisibility,
@@ -20,12 +21,15 @@ const AuthField = ({
 
   return (
     <div>
-      <label className="mb-2 block text-sm font-semibold text-[#5b403e]" htmlFor={id}>
+      <label
+        className={`${labelGapClassName} block text-sm font-semibold text-[#5b403e]`}
+        htmlFor={id}
+      >
         {label}
         {required && <span className="text-[#ba1a1a]">*</span>}
       </label>
       <div
-        className={`flex h-14 items-center gap-3 rounded-xl border bg-[#f8f9fa] px-4 transition focus-within:border-[#b71422] focus-within:bg-white focus-within:shadow-[0_0_0_1px_#b71422] ${
+        className={`flex h-12 items-center gap-3 rounded-xl border bg-[#f8f9fa] px-4 transition focus-within:border-[#b71422] focus-within:bg-white focus-within:shadow-[0_0_0_1px_#b71422] ${
           errorMessage ? "border-[#ba1a1a]" : "border-[#e4beba]"
         }`}
       >

@@ -51,13 +51,14 @@ const CategoryPage = () => {
   }, []);
 
   return (
-    <main className="-mb-28 min-h-screen bg-[#fff4f4] px-5 pb-36 pt-24">
+    <main className="-mb-28 min-h-screen px-5 pb-36 pt-10">
       <section className="mx-auto w-full max-w-[390px]">
-        <FeaturedPostSlider />
-
-        <h2 className="mb-4 text-[28px] font-bold leading-9 text-[#191c1d]">
-          취향별 소스 모음
+        <h2 className="mb-4 text-2xl font-bold leading-8 text-[#191c1d] max-sm:text-lg max-sm:leading-7">
+          취향에 따라
+          <br />
+          소스를 찾을 수 있어요
         </h2>
+        <FeaturedPostSlider />
 
         {isLoading && (
           <div className="rounded-[28px] bg-white p-6 text-center text-base text-[#5f5e5e] shadow-[0_2px_6px_rgba(44,23,23,0.06)]">
