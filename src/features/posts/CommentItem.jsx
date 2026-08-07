@@ -1,5 +1,6 @@
 import { getFullImageUrl } from "@/api";
 import Icon from "@/components/common/Icon";
+import { formatCommentCreatedAt } from "@/utils/format";
 import { isWithdrawnAuthorNickname } from "@/utils/normalizers";
 
 const CommentItem = ({ comment, isOwner, onDelete, onEdit }) => {
@@ -25,7 +26,7 @@ const CommentItem = ({ comment, isOwner, onDelete, onEdit }) => {
               {comment.authorNickname}
             </span>
             <time className="shrink-0 text-xs leading-4 text-[#5f5e5e]">
-              {comment.createdAt}
+              {formatCommentCreatedAt(comment.createdAt)}
             </time>
           </div>
           <p className="mt-3 whitespace-pre-wrap break-words text-base leading-6 text-[#5b403e]">
