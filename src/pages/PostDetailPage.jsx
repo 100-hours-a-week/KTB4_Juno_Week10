@@ -31,6 +31,7 @@ const PostDetailPage = () => {
   const [deletingComment, setDeletingComment] = useState(null);
   const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isPostMenuOpen, setIsPostMenuOpen] = useState(false);
 
   const fetchPost = useCallback(async () => {
     if (!postId) {
@@ -125,7 +126,8 @@ const PostDetailPage = () => {
           ...current,
           bookmarked: nextBookmarked,
           bookmarkCount:
-            pickField(response?.data, "bookmark_count") ?? fallbackBookmarkCount,
+            pickField(response?.data, "bookmark_count") ??
+            fallbackBookmarkCount,
         };
       });
 
@@ -279,27 +281,58 @@ const PostDetailPage = () => {
               </div>
 
               {isPostOwner && (
-                <div className="flex shrink-0 items-center gap-2 max-sm:self-end">
-                  <Link
-                    to={editPath}
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-[#e4beba] text-[#5f5e5e] transition hover:bg-[#e7e8e9] hover:text-[#9c2600] active:scale-95"
-                    aria-label="게시글 수정"
-                  >
-                    <Icon className="text-[21px]">edit</Icon>
-                  </Link>
+                <div
+                  className="relative flex shrink-0 items-center max-sm:self-end"
+                  onBlur={(event) => {
+                    if (!event.currentTarget.contains(event.relatedTarget)) {
+                      setIsPostMenuOpen(false);
+                    }
+                  }}
+                >
                   <button
                     type="button"
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-[#e4beba] text-[#ba1a1a] transition hover:bg-[#ffdad6] hover:text-[#93000a] active:scale-95"
-                    aria-label="게시글 삭제"
-                    onClick={() => setIsDeletePostModalOpen(true)}
+                    className="flex h-12 w-12 items-center justify-center rounded-full text-[#5f5e5e] transition hover:bg-[#e7e8e9] hover:text-[#9c2600] active:scale-95"
+                    aria-label="게시글 메뉴"
+                    aria-expanded={isPostMenuOpen}
+                    aria-haspopup="menu"
+                    onClick={() => setIsPostMenuOpen((current) => !current)}
                   >
-                    <Icon className="text-[21px]">delete</Icon>
+                    <Icon style={{ fontSize: "30px" }}>more_horiz</Icon>
                   </button>
+
+                  {isPostMenuOpen && (
+                    <div
+                      className="absolute right-0 top-11 z-20 w-24 overflow-hidden rounded-lg border border-[#eceef0] bg-white py-1 shadow-[0_8px_20px_rgba(0,0,0,0.08)]"
+                      role="menu"
+                    >
+                      <Link
+                        to={editPath}
+                        className="block w-full px-3 py-2 text-left text-[12px] font-semibold leading-4 text-[#191c1d] hover:bg-[#f8f9fa]"
+                        role="menuitem"
+                        style={{ fontSize: "14px" }}
+                        onClick={() => setIsPostMenuOpen(false)}
+                      >
+                        수정하기
+                      </Link>
+                      <button
+                        type="button"
+                        className="block w-full px-3 py-2 text-left text-[12px] font-semibold leading-4 text-[#ba1a1a] hover:bg-[#fff1f1]"
+                        role="menuitem"
+                        style={{ fontSize: "14px" }}
+                        onClick={() => {
+                          setIsPostMenuOpen(false);
+                          setIsDeletePostModalOpen(true);
+                        }}
+                      >
+                        삭제하기
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
 
-            <p className="mt-6 min-h-[100px] whitespace-pre-wrap break-words text-lg leading-7 text-[#5b403e] max-sm:text-base max-sm:leading-6">
+            <p className="mt-6 min-h-10 whitespace-pre-wrap break-words text-lg leading-7 text-[#5b403e] max-sm:text-base max-sm:leading-6">
               {post.content}
             </p>
 
