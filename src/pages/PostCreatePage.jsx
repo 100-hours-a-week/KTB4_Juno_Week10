@@ -20,14 +20,16 @@ const PostCreatePage = () => {
   };
 
   return (
-    <main className="min-h-screen px-5 pb-4 pt-[88px]">
+    <main className="min-h-screen px-5 pb-0 pt-[88px]">
       <section className="mx-auto w-full max-w-[672px]">
         <div className="mb-6">
           <h2 className="font-['Plus_Jakarta_Sans'] text-3xl font-bold leading-[38px] text-[#191c1d]">
-            새 게시글 작성
+            여기서 새로운 글을
+            <br />
+            작성할 수 있어요!
           </h2>
           <p className="mt-2 text-base leading-6 text-[#5f5e5e]">
-            자유롭게 이야기를 작성하고 이미지를 첨부해보세요.
+            당신의 추천 소스 조합은 무엇인가요?
           </p>
         </div>
 

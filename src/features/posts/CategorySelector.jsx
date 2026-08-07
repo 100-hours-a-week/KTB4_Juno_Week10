@@ -16,11 +16,11 @@ const CategorySelector = ({
 
   return (
     <div className="w-full">
-      <h3 className="mb-1 text-xl font-normal leading-7 text-[#191c1d]">
+      <h3 className="mb-1 text-xl font-semibold leading-7 text-[#191c1d]">
         소스 카테고리 선택
       </h3>
       <p className="mb-4 text-sm leading-5 text-[#7b7c7f]">
-        소스 카테고리는 최대 {maxSelection}개까지 선택 가능합니다.
+        소스 카테고리는 최대 {maxSelection}개까지 선택 가능해요
       </p>
 
       {isLoading && (
