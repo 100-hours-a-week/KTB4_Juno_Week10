@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { commentApi, getCurrentUserId, getFullImageUrl, postApi } from "@/api";
+import {
+  commentApi,
+  getCurrentUserId,
+  getFullImageUrl,
+  postApi,
+  userApi,
+} from "@/api";
 import ConfirmModal from "@/components/common/ConfirmModal";
 import Icon from "@/components/common/Icon";
 import { ROUTES } from "@/constants/routes";
@@ -32,6 +38,7 @@ const PostDetailPage = () => {
   const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isPostMenuOpen, setIsPostMenuOpen] = useState(false);
+  const [currentUserProfileImage, setCurrentUserProfileImage] = useState("");
 
   const fetchPost = useCallback(async () => {
     if (!postId) {
@@ -92,6 +99,31 @@ const PostDetailPage = () => {
       ignore = true;
     };
   }, [fetchPost]);
+
+  useEffect(() => {
+    if (!currentUserId) {
+      return undefined;
+    }
+
+    let ignore = false;
+
+    userApi
+      .getMyProfile()
+      .then((response) => {
+        if (!ignore) {
+          setCurrentUserProfileImage(response?.data?.profile_image ?? "");
+        }
+      })
+      .catch(() => {
+        if (!ignore) {
+          setCurrentUserProfileImage("");
+        }
+      });
+
+    return () => {
+      ignore = true;
+    };
+  }, [currentUserId]);
 
   const isPostOwner = useMemo(() => {
     return isOwner(post?.authorId, currentUserId);
@@ -372,6 +404,7 @@ const PostDetailPage = () => {
           <CommentForm
             key={editingComment?.id ?? "create-comment"}
             editingComment={editingComment}
+            profileImage={currentUserProfileImage}
             isSubmitting={isCommentSubmitting}
             onCancelEdit={() => setEditingComment(null)}
             onSubmit={handleSubmitComment}

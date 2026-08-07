@@ -1,9 +1,19 @@
 import { useEffect, useRef, useState } from "react";
+import { getFullImageUrl } from "@/api";
 import Icon from "@/components/common/Icon";
 
-const CommentForm = ({ editingComment, isSubmitting, onCancelEdit, onSubmit }) => {
+const CommentForm = ({
+  editingComment,
+  profileImage,
+  isSubmitting,
+  onCancelEdit,
+  onSubmit,
+}) => {
   const textareaRef = useRef(null);
   const [content, setContent] = useState(editingComment?.content ?? "");
+  const profileStyle = profileImage
+    ? { backgroundImage: `url(${getFullImageUrl(profileImage)})` }
+    : undefined;
 
   useEffect(() => {
     if (editingComment) {
@@ -40,8 +50,11 @@ const CommentForm = ({ editingComment, isSubmitting, onCancelEdit, onSubmit }) =
       className="flex min-h-[148px] w-full items-start gap-4 rounded-xl border border-[#e4beba]/35 bg-white p-4 max-sm:gap-3"
       onSubmit={handleSubmit}
     >
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#e7e8e9] text-[#5f5e5e] max-sm:h-9 max-sm:w-9">
-        <Icon className="text-2xl">person</Icon>
+      <div
+        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#e7e8e9] bg-cover bg-center bg-no-repeat text-[#5f5e5e] max-sm:h-9 max-sm:w-9"
+        style={profileStyle}
+      >
+        {!profileImage && <Icon className="text-2xl">person</Icon>}
       </div>
       <div className="min-w-0 flex-1">
         <textarea
