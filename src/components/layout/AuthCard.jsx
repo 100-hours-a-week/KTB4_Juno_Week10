@@ -1,34 +1,28 @@
 import { NavLink } from "react-router-dom";
 import { ROUTES } from "@/constants/routes";
-import Icon from "@/components/common/Icon";
 
 const AuthCard = ({ activeTab, children }) => {
-  const isLogin = activeTab === "login";
-
   return (
     <>
       <div className="mb-8 text-center">
-        {isLogin ? (
+        <div className="flex flex-col items-center">
           <img
-            className="mx-auto mb-4 h-16 w-16 rounded-2xl object-cover"
+            className="mb-3 h-[72px] w-[72px] rounded-3xl object-cover"
             src="/favicon.png"
             alt="마라보자"
           />
-        ) : (
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#b71422] shadow-[0_8px_20px_rgba(183,20,34,0.22)]">
-            <Icon className="text-[40px] text-white" filled>
-              forum
-            </Icon>
-          </div>
-        )}
-        <h1 className="font-['Plus_Jakarta_Sans'] text-2xl font-bold leading-8 text-[#b71422]">
-          {isLogin ? "마라보자" : "환영합니다 ~"}
-        </h1>
-        <p className="mt-2 text-base leading-6 text-[#5f5e5e]">
-          {isLogin
-            ? "마라 소스, 그냥 먹지 말고 이것 저것 마라보자"
-            : "가입해보세요~"}
-        </p>
+          <p className="mb-2 text-sm font-bold leading-5 text-[#c92525]">
+            마라 소스 커뮤니티
+          </p>
+          <h1 className="font-['Plus_Jakarta_Sans'] text-[36px] font-extrabold leading-[44px] tracking-normal text-[#191c1d]">
+            마라보자
+          </h1>
+          <p className="mt-3 max-w-[300px] text-base font-medium leading-6 text-[#6b504c]">
+            마라 소스, 그냥 먹지 말고
+            <br />
+            이것 저것 말아보자
+          </p>
+        </div>
       </div>
 
       <div className="overflow-hidden rounded-[32px] border border-[#edeeef] bg-white shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
