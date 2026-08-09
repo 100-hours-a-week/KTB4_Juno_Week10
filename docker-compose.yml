@@ -40,8 +40,6 @@ services:
       AWS_REGION: ${AWS_REGION}
       AWS_S3_BUCKET: ${AWS_S3_BUCKET}
 
-    volumes:
-      - backend-uploads:/app/uploads
     depends_on:
       mysql:
         condition: service_healthy
@@ -62,4 +60,3 @@ services:
 
 volumes:
   mysql-data:
-  backend-uploads:
