@@ -300,38 +300,7 @@ POST /posts/1/bookmarks
 Authorization: Bearer {accessToken}
 ```
 
-## 8. 환경 변수명 설명
-
-### 프론트엔드
-
-| 변수명 | 설명 | 예시 |
-| --- | --- | --- |
-| `VITE_API_BASE_URL` | 프론트엔드에서 API 요청을 보낼 기본 주소 | `/api` |
-
-### Docker Compose / 백엔드 연동
-
-| 변수명 | 설명 | 예시 |
-| --- | --- | --- |
-| `MYSQL_PASSWORD` | MySQL 일반 사용자 비밀번호 | `your_mysql_password` |
-| `MYSQL_ROOT_PASSWORD` | MySQL root 계정 비밀번호 | `your_root_password` |
-| `JWT_SECRET` | JWT 서명에 사용할 비밀 키 | `your_jwt_secret` |
-| `JWT_EXPIRATION` | JWT 만료 시간(ms), 미설정 시 기본값 사용 | `3600000` |
-| `AWS_REGION` | 이미지 저장용 AWS 리전 | `ap-northeast-2` |
-| `AWS_S3_BUCKET` | 이미지 저장용 S3 버킷 이름 | `your_bucket_name` |
-
-`.env` 예시:
-
-```env
-VITE_API_BASE_URL=/api
-MYSQL_PASSWORD=your_mysql_password
-MYSQL_ROOT_PASSWORD=your_root_password
-JWT_SECRET=your_jwt_secret
-JWT_EXPIRATION=3600000
-AWS_REGION=ap-northeast-2
-AWS_S3_BUCKET=your_bucket_name
-```
-
-## 9. 서비스 UI
+## 8. 서비스 UI
 
 <details>
 <summary>메인 화면</summary>
