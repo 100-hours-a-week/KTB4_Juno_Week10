@@ -1,3 +1,12 @@
+<p align="center">
+  <img
+    width="128"
+    height="128"
+    alt="favicon"
+    src="https://github.com/user-attachments/assets/58d5d1a4-bbe1-4984-b9fc-2462057f19ab"
+  />
+</p>
+
 # 마라보자 (See Mara)
 
 마라보자는 마라탕이나 훠궈를 먹을 때 찍어 먹는 다양한 소스 조합을 사용자들이 직접 작성하고 모아볼 수 있는 커뮤니티 서비스입니다.
@@ -318,3 +327,105 @@ JWT_EXPIRATION=3600000
 AWS_REGION=ap-northeast-2
 AWS_S3_BUCKET=your_bucket_name
 ```
+
+## 9. 서비스 UI
+
+<details>
+<summary>메인 화면</summary>
+
+<br />
+
+<p align="center">
+  <img
+    width="321"
+    height="778"
+    alt="1"
+    src="https://github.com/user-attachments/assets/19b79488-d030-4435-b972-fd7311ed9740"
+  />
+</p>
+
+</details>
+
+<!--
+<img
+  width="322"
+  height="777"
+  alt="스크린샷 2026-08-09 오후 10 16 38"
+  src="https://github.com/user-attachments/assets/33236eed-cd5b-45bd-b25b-d0e4a1682b5e"
+/>
+-->
+
+<details>
+<summary>소스 모아보기</summary>
+
+<br />
+
+<p align="center">
+  <img
+    width="322"
+    height="779"
+    alt="스크린샷 2026-08-09 오후 10 16 01"
+    src="https://github.com/user-attachments/assets/3d362f41-97fa-4539-98d2-f23a96acbdfa"
+  />
+</p>
+
+</details>
+
+
+<details>
+<summary>북마크 목록 화면</summary>
+
+<br />
+
+<p align="center">
+  <img
+    width="321"
+    height="779"
+    alt="스크린샷 2026-08-09 오후 10 16 29"
+    src="https://github.com/user-attachments/assets/ffa66b89-5c78-40d0-87ea-90078e004bea"
+  />
+</p>
+
+</details>
+
+<details>
+<summary>게시글 상세 화면</summary>
+
+<br />
+
+<p align="center">
+  <img
+    width="321"
+    height="777"
+    alt="스크린샷 2026-08-09 오후 10 16 19"
+    src="https://github.com/user-attachments/assets/a0dfd66f-be16-4bad-9683-26e847cce5a8"
+  />
+</p>
+
+</details>
+
+<!--
+<img
+  width="319"
+  height="777"
+  alt="스크린샷 2026-08-09 오후 10 16 11"
+  src="https://github.com/user-attachments/assets/879036b2-4b04-44d6-9591-2674c3a0fac7"
+/>
+-->
+
+<details>
+<summary>검색 화면</summary>
+
+<br />
+
+<p align="center">
+  <img
+    width="325"
+    height="780"
+    alt="스크린샷 2026-08-09 오후 10 22 28"
+    src="https://github.com/user-attachments/assets/38c6bdbc-307b-4534-ae5f-5e7a5a7f7cb0"
+  />
+</p>
+
+</details>
+
