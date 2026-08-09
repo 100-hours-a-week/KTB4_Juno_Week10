@@ -11,7 +11,8 @@
 
 마라보자는 마라탕이나 훠궈를 먹을 때 찍어 먹는 다양한 소스 조합을 사용자들이 직접 작성하고 모아볼 수 있는 커뮤니티 서비스입니다.
 
-[마라보자 백엔드 레포지토리 바로가기](https://github.com/100-hours-a-week/KTB4_Juno_Week8)
+[백엔드 레포지토리 바로가기](https://github.com/100-hours-a-week/KTB4_Juno_Week8)
+
 
 ## 1. 프로젝트 소개
 
