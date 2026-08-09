@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { categoryApi, imageApi } from "@/api";
+import ConfirmModal from "@/components/common/ConfirmModal";
 import FixedActionBar from "@/components/common/FixedActionBar";
 import { ROUTES } from "@/constants/routes";
 import { getImageUrlFromResponse } from "@/utils/normalizers";
@@ -30,6 +31,7 @@ const PostForm = ({
   initialCategoryIds = [],
   initialContent = "",
   initialImage = "",
+  initialImageKey = "",
   initialTitle = "",
   mode = "create",
   onSubmit,
@@ -41,11 +43,13 @@ const PostForm = ({
     useState(initialCategoryIds);
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentImage, setCurrentImage] = useState(initialImage);
+  const [currentImageKey, setCurrentImageKey] = useState(initialImageKey);
   const [isImageRemoved, setIsImageRemoved] = useState(!initialImage);
   const [helperMessage, setHelperMessage] = useState("");
   const [categoryErrorMessage, setCategoryErrorMessage] = useState("");
   const [isCategoryLoading, setIsCategoryLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
     let ignore = false;
@@ -83,7 +87,7 @@ const PostForm = ({
     event.preventDefault();
 
     if (!content.trim()) {
-      alert("작성할 내용이 없습니다");
+      setAlertMessage("작성할 내용이 없습니다");
       return;
     }
 
@@ -98,7 +102,7 @@ const PostForm = ({
     setHelperMessage("");
 
     try {
-      let image = currentImage;
+      let image = currentImageKey;
 
       if (isImageRemoved) {
         image = "";
@@ -138,6 +142,7 @@ const PostForm = ({
   const handleImageRemove = () => {
     setSelectedImage(null);
     setCurrentImage("");
+    setCurrentImageKey("");
     setIsImageRemoved(true);
     setHelperMessage("");
   };
@@ -233,6 +238,14 @@ const PostForm = ({
         isSubmitDisabled={false}
         submitLabel={mode === "edit" ? "수정하기" : "작성하기"}
         submittingLabel={mode === "edit" ? "수정 중..." : "작성 중..."}
+      />
+
+      <ConfirmModal
+        isOpen={Boolean(alertMessage)}
+        title={alertMessage}
+        confirmLabel="확인"
+        showCancel={false}
+        onConfirm={() => setAlertMessage("")}
       />
     </>
   );

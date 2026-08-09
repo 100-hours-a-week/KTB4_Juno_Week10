@@ -6,6 +6,7 @@ const ConfirmModal = ({
   isOpen,
   onCancel,
   onConfirm,
+  showCancel = true,
   title,
 }) => {
   if (!isOpen) {
@@ -30,16 +31,18 @@ const ConfirmModal = ({
           <p className="mt-3 text-sm leading-5 text-[#5f5e5e]">{description}</p>
         )}
         <div className="mt-10 flex justify-center gap-1">
-          <button
-            type="button"
-            className="h-10 min-w-[124px] rounded-full bg-[#f3f4f5] px-5 text-sm font-semibold text-[#5f5e5e] transition hover:bg-[#e7e8e9]"
-            onClick={onCancel}
-            disabled={isConfirming}
-          >
-            <span style={{ fontSize: "12px", fontWeight: 800 }}>
-              {cancelLabel}
-            </span>
-          </button>
+          {showCancel && (
+            <button
+              type="button"
+              className="h-10 min-w-[124px] rounded-full bg-[#f3f4f5] px-5 text-sm font-semibold text-[#5f5e5e] transition hover:bg-[#e7e8e9]"
+              onClick={onCancel}
+              disabled={isConfirming}
+            >
+              <span style={{ fontSize: "12px", fontWeight: 800 }}>
+                {cancelLabel}
+              </span>
+            </button>
+          )}
           <button
             type="button"
             className="h-10 min-w-[124px] rounded-full bg-[#b71422] px-5 text-sm font-semibold text-white transition hover:bg-[#930014] disabled:opacity-60"

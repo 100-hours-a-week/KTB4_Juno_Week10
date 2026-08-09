@@ -7,6 +7,7 @@ import {
   setAuthSession,
   userApi,
 } from "@/api";
+import ConfirmModal from "@/components/common/ConfirmModal";
 import { ROUTES } from "@/constants/routes";
 import {
   getImageUrlFromResponse,
@@ -52,6 +53,7 @@ const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [signupAlertMessage, setSignupAlertMessage] = useState("");
 
   const isFormValid = useMemo(() => {
     return (
@@ -183,12 +185,11 @@ const SignupForm = () => {
         }
       }
 
-      alert(
+      setSignupAlertMessage(
         profileImageSetupFailed
           ? PROFILE_IMAGE_SETUP_FAILED_MESSAGE
           : "회원가입이 완료되었습니다.",
       );
-      navigate(ROUTES.login);
     } catch (error) {
       const message = error.message;
 
@@ -209,86 +210,101 @@ const SignupForm = () => {
   };
 
   return (
-    <form className="space-y-2" noValidate onSubmit={handleSubmit}>
-      <ProfileImagePicker
-        file={profileImageFile}
-        onChange={setProfileImageFile}
-      />
+    <>
+      <form className="space-y-2" noValidate onSubmit={handleSubmit}>
+        <ProfileImagePicker
+          file={profileImageFile}
+          onChange={setProfileImageFile}
+        />
 
-      <AuthField
-        id="signupEmail"
-        label="이메일"
-        labelGapClassName="mb-1"
-        icon="mail"
-        type="email"
-        autoComplete="email"
-        placeholder="이메일을 입력하세요"
-        required
-        value={values.email}
-        errorMessage={errors.email}
-        onBlur={() => validateField("email")}
-        onChange={(value) => updateValue("email", value)}
-      />
-      <AuthField
-        id="signupNickname"
-        label="닉네임"
-        labelGapClassName="mb-1"
-        icon="badge"
-        autoComplete="nickname"
-        placeholder="닉네임을 입력하세요"
-        required
-        value={values.nickname}
-        errorMessage={errors.nickname}
-        onBlur={() => validateField("nickname")}
-        onChange={(value) => updateValue("nickname", value)}
-      />
-      <AuthField
-        id="signupPassword"
-        label="비밀번호"
-        labelGapClassName="mb-1"
-        icon="lock"
-        type="password"
-        autoComplete="new-password"
-        placeholder="비밀번호를 입력하세요"
-        required
-        value={values.password}
-        errorMessage={errors.password}
-        onBlur={() => validateField("password")}
-        onChange={(value) => updateValue("password", value)}
-        showPassword={showPassword}
-        onToggleVisibility={() => setShowPassword((current) => !current)}
-      />
-      <AuthField
-        id="signupPasswordConfirm"
-        label="비밀번호 확인"
-        labelGapClassName="mb-1"
-        icon="check_circle"
-        type="password"
-        autoComplete="new-password"
-        placeholder="비밀번호를 다시 입력하세요"
-        required
-        value={values.passwordConfirm}
-        errorMessage={errors.passwordConfirm}
-        onBlur={() => validateField("passwordConfirm")}
-        onChange={(value) => updateValue("passwordConfirm", value)}
-        showPassword={showPasswordConfirm}
-        onToggleVisibility={() => setShowPasswordConfirm((current) => !current)}
-      />
+        <AuthField
+          id="signupEmail"
+          label="이메일"
+          labelGapClassName="mb-1"
+          icon="mail"
+          type="email"
+          autoComplete="email"
+          placeholder="이메일을 입력하세요"
+          required
+          value={values.email}
+          errorMessage={errors.email}
+          onBlur={() => validateField("email")}
+          onChange={(value) => updateValue("email", value)}
+        />
+        <AuthField
+          id="signupNickname"
+          label="닉네임"
+          labelGapClassName="mb-1"
+          icon="badge"
+          autoComplete="nickname"
+          placeholder="닉네임을 입력하세요"
+          required
+          value={values.nickname}
+          errorMessage={errors.nickname}
+          onBlur={() => validateField("nickname")}
+          onChange={(value) => updateValue("nickname", value)}
+        />
+        <AuthField
+          id="signupPassword"
+          label="비밀번호"
+          labelGapClassName="mb-1"
+          icon="lock"
+          type="password"
+          autoComplete="new-password"
+          placeholder="비밀번호를 입력하세요"
+          required
+          value={values.password}
+          errorMessage={errors.password}
+          onBlur={() => validateField("password")}
+          onChange={(value) => updateValue("password", value)}
+          showPassword={showPassword}
+          onToggleVisibility={() => setShowPassword((current) => !current)}
+        />
+        <AuthField
+          id="signupPasswordConfirm"
+          label="비밀번호 확인"
+          labelGapClassName="mb-1"
+          icon="check_circle"
+          type="password"
+          autoComplete="new-password"
+          placeholder="비밀번호를 다시 입력하세요"
+          required
+          value={values.passwordConfirm}
+          errorMessage={errors.passwordConfirm}
+          onBlur={() => validateField("passwordConfirm")}
+          onChange={(value) => updateValue("passwordConfirm", value)}
+          showPassword={showPasswordConfirm}
+          onToggleVisibility={() =>
+            setShowPasswordConfirm((current) => !current)
+          }
+        />
 
-      <button
-        type="submit"
-        className={`h-12 w-full rounded-full text-sm font-bold text-white transition ${
-          isFormValid && !isSubmitting
-            ? "bg-[#b71422] hover:bg-[#930014] active:scale-[0.99]"
-            : "cursor-default bg-[#c8c6c6]"
-        }`}
-        disabled={!isFormValid || isSubmitting}
-      >
-        <span style={{ fontWeight: 700 }}>
-          {isSubmitting ? "가입 중..." : "회원가입"}
-        </span>
-      </button>
-    </form>
+        <button
+          type="submit"
+          className={`h-12 w-full rounded-full text-sm font-bold text-white transition ${
+            isFormValid && !isSubmitting
+              ? "bg-[#b71422] hover:bg-[#930014] active:scale-[0.99]"
+              : "cursor-default bg-[#c8c6c6]"
+          }`}
+          disabled={!isFormValid || isSubmitting}
+        >
+          <span style={{ fontWeight: 700 }}>
+            {isSubmitting ? "가입 중..." : "회원가입"}
+          </span>
+        </button>
+      </form>
+
+      <ConfirmModal
+        isOpen={Boolean(signupAlertMessage)}
+        title={signupAlertMessage}
+        confirmLabel="확인"
+        showCancel={false}
+        onConfirm={() => {
+          setSignupAlertMessage("");
+          navigate(ROUTES.login);
+        }}
+      />
+    </>
   );
 };
 
