@@ -5,6 +5,7 @@ export * as imageApi from "@/api/images";
 export * as postApi from "@/api/posts";
 export * as userApi from "@/api/users";
 export { getFullImageUrl } from "@/api/client";
+export * as chatApi from "@/api/chat";
 export {
   clearAuthSession,
   getAccessToken,

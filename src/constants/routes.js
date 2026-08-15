@@ -10,4 +10,6 @@ export const ROUTES = {
   postDetail: "/posts/:postId",
   postEdit: "/posts/:postId/edit",
   profileEdit: "/profile",
+
+  chatRoom: "/chat/:chatRoomId",
 };

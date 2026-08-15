@@ -16,9 +16,12 @@ import ProfileEditPage from "@/pages/ProfileEditPage";
 import SignupPage from "@/pages/SignupPage";
 import ProtectedRoute from "@/routes/ProtectedRoute";
 import PublicOnlyRoute from "@/routes/PublicOnlyRoute";
+import ChatPage from "@/pages/ChatPage";
 
 const RootRedirect = () => {
-  return <Navigate to={isAuthenticated() ? ROUTES.posts : ROUTES.login} replace />;
+  return (
+    <Navigate to={isAuthenticated() ? ROUTES.posts : ROUTES.login} replace />
+  );
 };
 
 const App = () => {
@@ -46,6 +49,7 @@ const App = () => {
           <Route path={ROUTES.postDetail} element={<PostDetailPage />} />
           <Route path={ROUTES.postEdit} element={<PostEditPage />} />
           <Route path={ROUTES.profileEdit} element={<ProfileEditPage />} />
+          <Route path={ROUTES.chatRoom} element={<ChatPage />} />
         </Route>
       </Route>
 
