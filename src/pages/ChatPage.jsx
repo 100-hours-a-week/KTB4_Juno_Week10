@@ -100,6 +100,14 @@ const ChatPage = () => {
       onWebSocketError: () => {
         setConnectionStatus("error");
       },
+
+      onHeartbeatLost: () => {
+        setConnectionStatus("disconnected");
+      },
+
+      onWebSocketClose: () => {
+        setConnectionStatus("disconnected");
+      },
     });
 
     clientRef.current = client;

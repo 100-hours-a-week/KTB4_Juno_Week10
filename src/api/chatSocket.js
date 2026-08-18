@@ -8,6 +8,8 @@ export const createChatClient = ({
   onDisconnect,
   onStompError,
   onWebSocketError,
+  onWebSocketClose,
+  onHeartbeatLost,
 }) => {
   const accessToken = getAccessToken();
 
@@ -19,6 +21,8 @@ export const createChatClient = ({
     },
 
     reconnectDelay: 5000,
+    heartbeatIncoming: 10000,
+    heartbeatOutgoing: 10000,
 
     onConnect,
     onDisconnect,
@@ -33,6 +37,18 @@ export const createChatClient = ({
       console.error("WebSocket 오류:", error);
 
       onWebSocketError?.(error);
+    },
+
+    onWebSocketClose: (event) => {
+      console.log("WebSocket 연결 종료:", event);
+
+      onWebSocketClose?.(event);
+    },
+
+    onHeartbeatLost: () => {
+      console.log("STOMP heartbeat 손실");
+
+      onHeartbeatLost?.();
     },
   });
 
